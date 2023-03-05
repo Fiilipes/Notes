@@ -1,0 +1,21 @@
+.blob {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: -200px;
+  top: -200px;
+  z-index: -99;
+
+  border-radius: 500px;
+  box-shadow:
+          155px 105px 25px 8px rgba(90, 171, 206, 0.15),
+          195px 265px 25px 12px rgba(150, 224, 71, 0.15),
+          355px 105px 25px 10px rgba(206, 114, 236, 0.25),
+          100vw 150px 25px 12px rgba(46, 72, 169, 0.15),
+          105vw 260px 25px 12px rgba(194, 222, 98, 0.18),
+          40vw 750px 25px 18px rgba(90, 234, 216, 0.22),
+          50vw 700px 25px 80px rgba(216, 239, 114, 0.22),
+          65vw 750px 25px 26px rgba(95, 255, 121,0.22),
+          75vw 650px 25px 45px rgba(206, 114, 236, 0.25)
+
+}
