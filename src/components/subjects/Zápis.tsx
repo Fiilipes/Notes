@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import MyThreeComponents from "./MyThreeComponents";
 import MyComponent from "./MyComponent";
-import "../Zápis.scss"
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
 import {db} from "../../firebase.config";
@@ -74,7 +73,7 @@ function Zápis({id}) {
         while ((match2 = regex2.exec(htmlString)) !== null) {
             let myMatch = match2[0];
             // replace everything between < > which is a div with nothing
-                myMatch = myMatch.replace(/<div contenteditable=\"true\" translate=\"no\" class=\"ProseMirror\" tabindex=\"0\">/, "").replace(/<div name=\"(editorsThree|editorOne)\" class=\"mx-auto\">/, "").replace(/<\/div>/g, "");
+            myMatch = myMatch.replace(/<div contenteditable=\"true\" translate=\"no\" class=\"ProseMirror\" tabindex=\"0\">/, "").replace(/<div name=\"(editorsThree|editorOne)\" class=\"mx-auto\">/, "").replace(/<\/div>/g, "");
 
             if (editorHelperArray[helperIndex] === "editorsThree") {
                 console.log("ahojkyyy")

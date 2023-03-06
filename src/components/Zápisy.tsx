@@ -79,7 +79,7 @@ export default () => {
                 }
             )
 
-    } else {
+        } else {
             const content = document.getElementById("workspace")
             // @ts-ignore
             Array.from(content.children).forEach(
@@ -95,7 +95,7 @@ export default () => {
         let myData
         getNotes().then((data) => {
             // @ts-ignore
-             myData = data[0]["notes"]
+            myData = data[0]["notes"]
             console.log(myData)
             let myNewArray: JSX.Element[] = []
 
@@ -104,12 +104,49 @@ export default () => {
                     console.log(item)
 
                     myNewArray.push(
-                        <NoteBlob name={item.name} subject={item.subject} id={item.id} key={item.id}/>
+                        <NoteBlob name={item.name} subject={item.subject} date={item.date} id={item.id} key={item.id}/>
                     )
                     console.log(myNewArray)
                     // @ts-ignore
                     setNotesArr(myNewArray)
+                    let counter = 0
+                    let counter2 = 0
 
+                    myNewArray.forEach(
+                        (item: any) => {
+                            let dateX = item.props.date
+                            let currentDay = new Date().getDate()
+                            let currentMonth = new Date().getMonth() + 1
+                            let currentYear = new Date().getFullYear()
+                            let currentDayInWeek = new Date().getDay()
+
+                            let currentDate = new Date();
+                            let startDate = new Date(currentDate.getFullYear(), 0, 1);
+                            // @ts-ignore
+                            let days = Math.floor((currentDate - startDate) /
+                                (24 * 60 * 60 * 1000));
+
+                            let weekNumber = Math.ceil(days / 7);
+
+                            // Display the calculated result
+                            console.log("Week number of " + currentDate +
+                                " is :   " + weekNumber);
+
+
+                            if (weekNumber.toString() == dateX[3].toString() && currentYear.toString() == dateX[2].toString()) {
+                                counter+=1
+                            }
+                            if (currentMonth.toString() == dateX[1].toString() && currentYear.toString() == dateX[2].toString()) {
+                                counter2+=1
+                            }
+                            // @ts-ignore
+                            document.getElementById("inCurrentWeek").innerHTML = counter.toString()
+                            // @ts-ignore
+                            document.getElementById("inCurrentMonth").innerHTML = counter2.toString()
+
+
+                        }
+                    )
                 }
             )
         })
@@ -132,6 +169,29 @@ export default () => {
 
             <div id={"content"} className={"flex flex-col justify-between items-center p-4 mx-auto"}>
                 <div className={"flex flex-col items-center"}>
+                    <div className={"mb-12"}>
+                        <div className={"flex flex-row"}>
+                            <div className={"w-[200px] h-[85px] shadow-[0_10px_0_rgba(0,0,0,0.8)] bg-[white] border-2 border-black  rounded-3xl font-bold text-2xl text-center p-2 mx-2"}>
+                                Počet zápisů <br/>
+                                <span className={"text-3xl font-black"}>
+                                    {notesArr.length}
+                                </span>
+                            </div>
+                            <div className={"w-[200px] h-[85px] shadow-[0_10px_0_rgba(0,0,0,0.8)] bg-[white] border-2 border-black  rounded-3xl font-bold text-2xl text-center p-2 mx-2"}>
+                                Tento Měsíc <br/>
+                                <span id={"inCurrentMonth"} className={"text-3xl font-black"}>
+                                    0
+                                </span>
+                            </div>
+                            <div className={"w-[200px] h-[85px] shadow-[0_10px_0_rgba(0,0,0,0.8)] bg-[white] border-2 border-black  rounded-3xl font-bold text-2xl text-center p-2 mx-2"}>
+                                Tento týden <br/>
+                                <span id={"inCurrentWeek"} className={"text-3xl font-black"}>
+                                    0
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className={"flex flex-row"}>
                         <input type={"text"} onInput={
                             filterText
@@ -228,6 +288,20 @@ export default () => {
                                     console.log("add note")
                                     const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
                                     console.log(randomId)
+                                    const currentDay = new Date().getDate()
+                                    const currentMonth = new Date().getMonth() + 1
+                                    const currentYear = new Date().getFullYear()
+                                    let currentDate = new Date();
+                                    let startDate = new Date(currentDate.getFullYear(), 0, 1);
+                                    // @ts-ignore
+                                    let days = Math.floor((currentDate - startDate) /
+                                        (24 * 60 * 60 * 1000));
+
+                                    let weekNumber = Math.ceil(days / 7);
+
+                                    // Display the calculated result
+                                    console.log("Week number of " + currentDate +
+                                        " is :   " + weekNumber);
 
 
                                     const name = document.getElementById("addNoteName") as HTMLInputElement
@@ -240,9 +314,11 @@ export default () => {
                                         setDoc(doc(db, "notes", "notes"), {
                                             notes: [...notes, {
                                                 name: name.value, subject: subject.value, editorArray: ["editorOne"]
-                                            , editorTextArray: [`<h1>${name.value}</h1>`], id: randomId
-                                                }
+                                                , editorTextArray: [`<h1>${name.value}</h1>`], id: randomId, date: [
+                                                    currentDay, currentMonth, currentYear, weekNumber
                                                 ]
+                                            }
+                                            ]
                                         })
                                         // @ts-ignore
                                         localStorage.setItem(`/notes/zápisy/${randomId}-editors`, JSON.stringify(["editorOne"]))

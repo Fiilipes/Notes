@@ -6,7 +6,7 @@ import StarterKit from '@tiptap/starter-kit'
 function MyComponent({content}) {
 
     return (
-            <div>
+        <div>
             <EditorContent
                 name={"editorOne"}
                 editor={useEditor({content: content, extensions: [StarterKit],})}

@@ -56,7 +56,7 @@ function App() {
 
     return (
         <>
-           <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
+            <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
 
 
             <Routes>

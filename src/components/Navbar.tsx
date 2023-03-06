@@ -19,6 +19,8 @@ const links = [
     { id: 1, label: 'Home', url: '/' },
     { id: 2, label: 'Notes', url: '/notes' },
     { id: 3, label: 'Zápisy', url: '/notes/zápisy' },
+    { id: 4, label: 'Testy', url: '/notes/testy' },
+    { id: 5, label: 'Procvičování', url: '/notes/procvičování' },
 
 ];
 
@@ -70,19 +72,19 @@ function Navbar({ isAuth, setIsAuth }) {
 
     return (
         <div>
-            <header className={"flex justify-between items-center w-11/12 max-w-6xl mx-auto ml-[160px] py-4"}>
-                <Link to={"/notes/"} className={"w-[100px]"}>
+            <header className={"flex justify-between items-center  2xl:max-w-6xl xl:max-w-5xl lg:max-w-4xl md:max-w-3xl sm:max-w-48  mx-auto ml-[10%] py-4"}>
+                <Link to={"/notes/"} className={"w-[8%]"}>
                     {/*
                         logo
                     */}
                     <img src={notesLogo} alt={"logo"} className={"w-16 h-16]"} />
                 </Link>
-                <nav className="flex items-center space-x-6 justify-center">
+                <nav className="flex items-center space-x-6 justify-center w-[200px]">
                     {links.map((link) => (
                         <Link
                             key={link.id}
                             to={link.url}
-                            className="nav-link text-gray-800 font-semibold hover:text-gray-900"
+                            className="nav-link text-gray-800 w-[100%] font-semibold hover:text-gray-900"
                         >
                             {link.label}
                         </Link>
