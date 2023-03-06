@@ -64,7 +64,6 @@ function App() {
                 <Route  path="/notes" element={<Notes isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route path={"/notes/zápisy"} element={<Zápisy/>} />
                 <Route path={"/clock"} element={<Clock />} />
-                <Route path={"/notes/zápisy/biologie"} element={<Biologie isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 {helperArray.map((item, index) => {
                     console.log("item")
                     console.log(item)

@@ -81,7 +81,7 @@ function Zápis({id}) {
                 helperArr.push(myMatch);
                 if (helperIndex2 === 3) {
                     // @ts-ignore
-                    editorContentArray.push(helperArr);
+                    editorContentArray.push(helperArr.toString());
                     helperIndex2 = 0;
                     helperArr = [];
                     console.log("helperArr")
@@ -177,7 +177,7 @@ function Zápis({id}) {
                         if (item === 'editorOne') {
                             newComponents.push(<MyComponent key={newComponents.length} content={loadedText[index]} />);
                         } else if (item === 'editorsThree') {
-                            newComponents.push(<MyThreeComponents key={newComponents.length} content={Array.from(loadedText[index])} />);
+                            newComponents.push(<MyThreeComponents key={newComponents.length} content={Array.from(loadedText[index].split(","))} />);
                         }
                     })
 
@@ -213,6 +213,7 @@ function Zápis({id}) {
             <div className={"font-lg"}>
                 <div className={"flex flex-row w-[500px] justify-start my-5 ml-6"}>
                     <button onClick={handleAddMyComponent} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Add</button>
+                    <button onClick={handleAddThreeMyComponents} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Three</button>
                     <button onClick={handleSave} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Save</button>
                     <button onClick={handleLoad} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Load</button>
                     <button onClick={handleClear} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Clear</button>
