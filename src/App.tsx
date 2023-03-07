@@ -105,7 +105,6 @@ function App() {
                 <Route  path="/" element={<Home isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route  path="/notes" element={<Notes isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route path={"/notes/zápisy"} element={<Zápisy/>} />
-                <Route path={"/clock"} element={<Clock />} />
                 <Route path={"/notes/testy"} element={<Testy />} />
                 <Route path={"/login"} element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />} />
 

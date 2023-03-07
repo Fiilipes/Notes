@@ -17,8 +17,15 @@ function Zápis({id, name, subject, date}) {
 
 
     const handleAddMyComponent = () => {
+
         // @ts-ignore
-        setMyComponents([...myComponents, <MyComponent key={myComponents.length} content={"ahoj"} />]);
+        let myValue = document.getElementById("myNumber").value;
+        console.log("my value")
+        console.log(myValue)
+
+        // @ts-ignore
+        setMyComponents([...myComponents, <MyComponent key={myComponents.length} content={"ahoj"} number={myValue} />]);
+
     }
 
     const handleAddThreeMyComponents = () => {
@@ -63,9 +70,24 @@ function Zápis({id, name, subject, date}) {
 
         localStorage.setItem(`/notes/zápisy/${id}-editors`, JSON.stringify(editorArray));
 
+        const editorInputValuesArray: string[] = [];
+        const regex3 = /value="(1|2|3|4)"/g;
+        let match3;
+        let helper3 = 0;
+
+        while ((match3 = regex3.exec(htmlString)) !== null) {
+            editorInputValuesArray.push(match3[1]);
+        }
+
+
+
+
+
+
+
         let editorContentArray: string[] = [];
 
-        const regex2 = /<div name="(editorOne|editorsThree)" class="mx-auto">(.|\n)*?<\/div>/g;
+        const regex2 = /<div name="(editorOne|editorsThree)" value="(1|2|3|4)" class="mx-auto">(.|\n)*?<\/div>/g;
         let helperIndex = 0;
         let helperIndex2 = 0;
         let helperArr = [];
@@ -112,6 +134,7 @@ function Zápis({id, name, subject, date}) {
                 if (item.id === id) {
                     myData[index]["editorArray"] = editorArray;
                     myData[index]["editorTextArray"] = editorContentArray;
+                    myData[index]["editorInputValueArray"] = editorInputValuesArray;
 
                 }
             })
@@ -167,15 +190,18 @@ function Zápis({id, name, subject, date}) {
 
                     let loadedEditors = myData[index]["editorArray"];
                     let loadedText = myData[index]["editorTextArray"];
+                    let loadedInputValues = myData[index]["editorInputValueArray"];
 
                     console.log("loadedEditors")
                     console.log(loadedEditors)
                     console.log("loadedText")
                     console.log(loadedText)
+                    console.log("loadedInputValues")
+                    console.log(loadedInputValues)
 
                     loadedEditors.forEach((item: string, index: number) => {
                         if (item === 'editorOne') {
-                            newComponents.push(<MyComponent key={newComponents.length} content={loadedText[index]} />);
+                            newComponents.push(<MyComponent key={newComponents.length} content={loadedText[index]} number={loadedInputValues[index]} />);
                         } else if (item === 'editorsThree') {
                             newComponents.push(<MyThreeComponents key={newComponents.length} content={Array.from(loadedText[index].split(","))} />);
                         }
