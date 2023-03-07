@@ -47,18 +47,42 @@ function Zápis({id, name, subject, date}) {
         const editorArray: string[] = [];
         const editorHelperArray = [];
 
-        const regex = /name="(editorOne|editorsThree)"/g;
+        const regex = /name="(editorOne|editorsTwo|editorsThree|editorsFour)"/g;
         let match;
         let helper = 0;
+        let helper02 = 0
+        let helper002 = 0;
         while ((match = regex.exec(htmlString)) !== null) {
-            if (match[1] === "editorsThree" && helper === 0) {
+            if (match[1] === "editorsFour" && helper002 === 0) {
                 editorArray.push(match[1]);
-                helper = 1;
-            } else if (match[1] === "editorsThree" && helper === 1) {
-                console.log("--")
+                helper002 = 3;
+            } else if (match[1] === "editorsFour" && helper002 !== 0) {
+                helper002 -= 1;
+                if (helper002 < 0) {
+                    helper002 = 0;
+                }
+            } else if (match[1] === "editorsThree" && helper === 0) {
+                editorArray.push(match[1]);
+                helper = 3;
+            } else if (match[1] === "editorsThree" && helper !== 0) {
+                helper -= 1;
+                if (helper < 0) {
+                    helper = 0;
+                }
+            } else if (match[1] === "editorsTwo" && helper02 === 0) {
+                editorArray.push(match[1]);
+                helper02 = 2;
+            } else if (match[1] === "editorsTwo" && helper02 !== 0) {
+                helper02 -= 1;
+                if (helper02 < 0) {
+                    helper02 = 0;
+                }
             } else {
                 editorArray.push(match[1]);
-                helper = 0;
+                helper -= 1;
+                if (helper < 0) {
+                    helper = 0;
+                }
             }
         }
 
@@ -74,9 +98,42 @@ function Zápis({id, name, subject, date}) {
         const regex3 = /value="(1|2|3|4)"/g;
         let match3;
         let helper3 = 0;
+        let helper03 = 0;
+        let helper003 = 0;
 
         while ((match3 = regex3.exec(htmlString)) !== null) {
-            editorInputValuesArray.push(match3[1]);
+            console.log(match3[1])
+            if (match3[1] === "4" && helper003 === 0) {
+                editorInputValuesArray.push(match3[1]);
+                helper003 = 3;
+            } else if (match3[1] === "4" && helper003 !== 0) {
+                helper003 -= 1;
+                if (helper003 < 0) {
+                    helper003 = 0;
+                }
+            }else if (match3[1] === "3" && helper3 === 0) {
+                editorInputValuesArray.push(match3[1]);
+                helper3 = 2;
+            } else if (match3[1] === "3" && helper3 !== 0) {
+                helper3 -= 1;
+                if (helper3 < 0) {
+                    helper3 = 0;
+                }
+            } else if (match3[1] === "2" && helper03 === 0) {
+                editorInputValuesArray.push(match3[1]);
+                helper03 = 1;
+            } else if (match3[1] === "2" && helper03 !== 0) {
+                helper03 -= 1;
+                if (helper03 < 0) {
+                    helper03 = 0;
+                }
+            } else if (match3[1] === "1") {
+                editorInputValuesArray.push(match3[1]);
+                helper3 -= 1;
+                if (helper3 < 0) {
+                    helper3 = 0;
+                }
+            }
         }
 
 
@@ -87,17 +144,29 @@ function Zápis({id, name, subject, date}) {
 
         let editorContentArray: string[] = [];
 
-        const regex2 = /<div name="(editorOne|editorsThree)" value="(1|2|3|4)" class="mx-auto">(.|\n)*?<\/div>/g;
+        const regex2 = /<div name="(editorOne|editorsTwo|editorsThree|editorsFour)" value="(1|2|3|4)" class="mx-auto">(.|\n)*?<\/div>/g;
         let helperIndex = 0;
         let helperIndex2 = 0;
+        let helperIndex02 = 0;
+        let helperIndex002 = 0;
         let helperArr = [];
         let match2;
         while ((match2 = regex2.exec(htmlString)) !== null) {
             let myMatch = match2[0];
             // replace everything between < > which is a div with nothing
-            myMatch = myMatch.replace(/<div contenteditable=\"true\" translate=\"no\" class=\"ProseMirror\" tabindex=\"0\">/, "").replace(/<div name=\"(editorsThree|editorOne)\" class=\"mx-auto\">/, "").replace(/<\/div>/g, "");
-
-            if (editorHelperArray[helperIndex] === "editorsThree") {
+            myMatch = myMatch.replace(/<div contenteditable=\"true\" translate=\"no\" class=\"ProseMirror\" tabindex=\"0\">/, "").replace(/<div name=\"(editorsFour|editorsThree|editorsTwo|editorOne)\" value=\"(1|2|3|4)\" class=\"mx-auto\">/, "").replace(/<\/div>/g, "");
+            if (editorHelperArray[helperIndex] === "editorsFour") {
+                console.log("ahojkyyy")
+                helperIndex002 += 1;
+                helperArr.push(myMatch);
+                if (helperIndex002 === 4) {
+                    // @ts-ignore
+                    editorContentArray.push(helperArr.toString());
+                    helperIndex002 = 0;
+                    helperArr = [];
+                    console.log("helperArr")
+                }
+            }else if (editorHelperArray[helperIndex] === "editorsThree") {
                 console.log("ahojkyyy")
                 helperIndex2 += 1;
                 helperArr.push(myMatch);
@@ -108,7 +177,19 @@ function Zápis({id, name, subject, date}) {
                     helperArr = [];
                     console.log("helperArr")
                 }
-            } else {
+            } else if (editorHelperArray[helperIndex] === "editorsTwo") {
+                console.log("ahojkyyy")
+                helperIndex02 += 1;
+                helperArr.push(myMatch);
+                if (helperIndex02 === 2) {
+                    // @ts-ignore
+                    editorContentArray.push(helperArr.toString());
+                    helperIndex02 = 0;
+                    helperArr = [];
+                    console.log("helperArr")
+                }
+            }
+            else {
                 editorContentArray.push(
                     myMatch
                 )
@@ -120,7 +201,7 @@ function Zápis({id, name, subject, date}) {
         }
 
         console.log(editorContentArray); // Output: ["<div class="ProseMirror" contenteditable="true" name="editorOne">content</div>", "<div class="ProseMirror" contenteditable="true" name="editorOne">content</div>", "<div class="ProseMirror" contenteditable="true" name="editorOne">content</div>", "<div class="ProseMirror" contenteditable="true" name="editorOne">content</div>", "<div class="ProseMirror" contenteditable="true" name="editorsThree">content</div>"]
-
+        console.log(editorInputValuesArray)
         localStorage.setItem(`/notes/zápisy/${id}-text`, JSON.stringify(editorContentArray));
 
         getNotes().then((data) => {
@@ -200,11 +281,17 @@ function Zápis({id, name, subject, date}) {
                     console.log(loadedInputValues)
 
                     loadedEditors.forEach((item: string, index: number) => {
-                        if (item === 'editorOne') {
+                        console.log(loadedInputValues[index])
+                        console.log(item)
+                        if (item === "editorOne") {
+                            // @ts-ignore
                             newComponents.push(<MyComponent key={newComponents.length} content={loadedText[index]} number={loadedInputValues[index]} />);
-                        } else if (item === 'editorsThree') {
-                            newComponents.push(<MyThreeComponents key={newComponents.length} content={Array.from(loadedText[index].split(","))} />);
+                        } else {
+                            // @ts-ignore
+                            newComponents.push(<MyComponent key={newComponents.length} content={loadedText[index].split(",")} number={loadedInputValues[index]} />);
                         }
+
+
                     })
 
                     // @ts-ignore
