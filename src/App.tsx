@@ -38,6 +38,10 @@ function App() {
     const [helperDateArray, setHelperDateArray] = useState([])
 
     const [helperIdArray2, setHelperIdArray2] = useState([])
+    const [helperNameArray2, setHelperNameArray2] = useState([])
+    const [helperSubjectArray2, setHelperSubjectArray2] = useState([])
+    const [helperDateArray2, setHelperDateArray2] = useState([])
+
 
     const handleLoad = () => {
         getNotes().then((data) => {
@@ -51,6 +55,10 @@ function App() {
             // @ts-ignore
             let myData2 = data[1]["all"]
             let myIdArray2:any[] = []
+            let myNameArray2:any[] = []
+            let mySubjectArray2:any[] = []
+            let myDateArray2:any[] = []
+
 
             myData.forEach(
                 (item: any) => {
@@ -73,6 +81,15 @@ function App() {
                     myIdArray2.push(
                         `${item.id}`
                     )
+                    myNameArray2.push(
+                        `${item.theme}`
+                    )
+                    mySubjectArray2.push(
+                        `${item.subject}`
+                    )
+                    myDateArray2.push(
+                        `${item.day},${item.month},${item.year}`
+                    )
                 }
             )
             // @ts-ignore
@@ -85,6 +102,13 @@ function App() {
             setHelperDateArray(myDateArray)
             // @ts-ignore
             setHelperIdArray2(myIdArray2)
+            // @ts-ignore
+            setHelperNameArray2(myNameArray2)
+            // @ts-ignore
+            setHelperSubjectArray2(mySubjectArray2)
+            // @ts-ignore
+            setHelperDateArray2(myDateArray2)
+
         })
     }
     useEffect(
@@ -119,7 +143,7 @@ function App() {
                     console.log("item")
                     console.log(item)
                     return (
-                        <Route path={`/notes/testy/${item}`} element={<Test id={item} />} />
+                        <Route path={`/notes/testy/${item}`} element={<Test id={item} name={helperNameArray2[index]} subject={helperSubjectArray2[index]} date={helperDateArray2[index]} />} />
                     )
                 })
                 }

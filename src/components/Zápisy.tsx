@@ -315,7 +315,7 @@ export default () => {
                                             setDoc(doc(db, "notes", "notes"), {
                                                 notes: [...notes, {
                                                     name: name.value, subject: subject.value, editorArray: ["editorOne"]
-                                                    , editorTextArray: [`<h1>${name.value}</h1>`], editorInputValueArray: ["1"], id: randomId, date: [
+                                                    , editorTextArray: [`<h1>${name.value}</h1>`], editorInputValueArray: ["1"], id: "Z-"+randomId, date: [
                                                         currentDay, currentMonth, currentYear, weekNumber
                                                     ]
                                                 }

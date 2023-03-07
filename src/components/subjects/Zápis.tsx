@@ -327,15 +327,20 @@ function Zápis({id, name, subject, date}) {
 
 
                 <div className={"font-lg flex flex-col"}>
-                    <div className={"flex flex-row justify-center mb-4"}>
+
+                    <div className={"flex flex-row justify-center items-end mb-4"}>
                         <h1>{name}</h1>
+
                     </div>
                     <div className={"flex flex-row justify-center"}>
+                        <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
+                            Zápis
+                        </div>
                         <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
                             {subject}
                         </div>
                         <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
-                            {date.split(",")[0]}.{date.split(",")[1]} {date.split(",")[2]}
+                            {date.split(",")[0]}.{date.split(",")[1]}. {date.split(",")[2]}
                         </div>
                     </div>
 
