@@ -11,7 +11,7 @@ function Login({isAuth, setIsAuth}) {
                 localStorage.setItem("isAuth", "true")
                 setIsAuth(true)
                 // @ts-ignore
-                location.href = localStorage.getItem("lastPage")
+                location.href = localStorage.getItem("lastPage") ? localStorage.getItem("lastPage") : location.href
                 // profile picture
                 // @ts-ignore
             }

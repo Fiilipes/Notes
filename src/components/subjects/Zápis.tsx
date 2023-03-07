@@ -11,7 +11,7 @@ const getNotes = async () => {
     return data.docs.map((doc) => ({...doc.data(), id: doc.id} ))
 }
 // @ts-ignore
-function Zápis({id}) {
+function Zápis({id, name, subject, date}) {
     console.log(id)
     const [myComponents, setMyComponents] = useState([]);
 
@@ -200,32 +200,59 @@ function Zápis({id}) {
 
     useEffect(() => {
         handleLoad()
+        // @ts-ignore
+        document.getElementById("myNumber").value = 1;
     }, []);
+    if (localStorage.getItem("isAuth") === "true") {
+        return (
+            <div>
+                <div className={"blob"}>
 
-    return (
-        <div>
-            <div className={"blob"}>
-
-            </div>
-            <h1>Zápis</h1>
-            <p>{id}</p>
-
-            <div className={"font-lg"}>
-                <div className={"flex flex-row w-[500px] justify-start my-5 ml-6"}>
-                    <button onClick={handleAddMyComponent} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Add</button>
-                    <button onClick={handleAddThreeMyComponents} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Three</button>
-                    <button onClick={handleSave} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Save</button>
-                    <button onClick={handleLoad} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Load</button>
-                    <button onClick={handleClear} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Clear</button>
                 </div>
 
-                <div id={id} className={"mx-auto p-6 rounded-2xl w-[96%]"}>
-                    {myComponents.map(component => component)}
-                </div>
-            </div>
 
-        </div>
-    );
+
+
+                <div className={"font-lg flex flex-col"}>
+                    <div className={"flex flex-row justify-center mb-4"}>
+                        <h1>{name}</h1>
+                    </div>
+                    <div className={"flex flex-row justify-center"}>
+                        <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
+                            {subject}
+                        </div>
+                        <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
+                            {date.split(",")[0]}.{date.split(",")[1]} {date.split(",")[2]}
+                        </div>
+                    </div>
+
+                    <div className={"flex flex-row justify-center my-5"}>
+                        <button  onClick={handleAddMyComponent} className={"w-30 h-10 px-4 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Add
+                        </button>
+                        <input type="number" id="myNumber" name="myNumber" min="1" max="4" className={"w-12 select-none pl-2 outline-none text-black font-bold border-2 border-black rounded-xl text-xl"} >
+
+                        </input>
+
+                        <button onClick={handleAddThreeMyComponents} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Three</button>
+                        <button onClick={handleSave} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Save</button>
+                        <button onClick={handleLoad} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Load</button>
+                        <button onClick={handleClear} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Clear</button>
+                    </div>
+
+                    <div id={id} className={"mx-auto p-6 rounded-2xl w-[96%]"}>
+                        {myComponents.map(component => component)}
+                    </div>
+                </div>
+
+            </div>
+        );
+
+
+    } else {
+        localStorage.setItem("lastPage", "/notes/zápisy/"+id)
+        location.href = "/login"
+        return <div></div>
+    }
 }
 
 export default Zápis;

@@ -22,7 +22,7 @@ function MyThrrComponents({content}) {
                     editor={useEditor({content: content[1], extensions: [StarterKit],})}
                     className={"mx-auto"}
 
-                />
+                />  
             </div>
             <div className={"bg-[#ccc] p-6 rounded-xl w-[400px] h-[300px] shadow-[0_10px_0_rgba(0,0,0,0.5)]"}>
                 <EditorContent
