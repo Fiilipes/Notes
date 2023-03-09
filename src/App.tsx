@@ -10,8 +10,10 @@ import Notes from "./components/Notes";
 import Zápisy from "./components/Zápisy";
 import Biologie from "./components/subjects/Biologie";
 import Clock from "./components/Clock";
+import Profile from "./components/Profile";
 import Zápis from "./components/subjects/Zápis";
 import Testy from "./components/Testy";
+import Procvičování from "./components/Procvičování";
 
 import Login from "./components/Login";
 import { getFirestore, onSnapshot } from "firebase/firestore";
@@ -130,7 +132,9 @@ function App() {
                 <Route  path="/notes" element={<Notes isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route path={"/notes/zápisy"} element={<Zápisy/>} />
                 <Route path={"/notes/testy"} element={<Testy />} />
+                <Route path={"/notes/procvičování"} element={<Procvičování />} />
                 <Route path={"/login"} element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />} />
+                <Route path={"/profile"} element={<Profile />} />
 
                 {helperIdArray.map((item: any, index: any) => {
                     console.log("item")

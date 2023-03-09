@@ -99,7 +99,7 @@ function Test({id, name, subject, date}) {
                 let myData = data
                 // @ts-ignore
                 setNotes(myData[0]["notes"])
-                console.log("----")
+                             console.log("----")
                 // @ts-ignore
                 myData[1]["all"].forEach(
                     (item: any) => {
@@ -117,6 +117,7 @@ function Test({id, name, subject, date}) {
     )
 
     if (localStorage.getItem("isAuth") === "true") {
+        // @ts-ignore
         return (
             <div>
                 <div className={"blob"}>
@@ -156,26 +157,33 @@ function Test({id, name, subject, date}) {
                                     {zápisyFilter.length !== 0 ? zápisyFilter.map((item: any) => { return <div className={"flex flex-col justify-center items-center border-2 border-black rounded-[15px] font-semibold p-1 cursor-pointer m-2"} onClick={chosenNote} id={"ZápisFilter-"+item.id}>{item.name}</div> }) : ""}
                                 </div>
                             </div>
-                            <div className={"grid grid-cols-2 mx-auto mt-8"}>
-                                {htmlNotes.length !== 0 ? htmlNotes.zápisy.map((item: any) => { return <NoteBlob id={item} subject={
+                            <div className={"grid grid-cols-2 gap-y-12 mx-auto mt-8"}>
+                                {/*@ts-ignore*/}
+                                {htmlNotes.length !== 0 ? htmlNotes.zápisy.map((item: any) => {
+
+// @ts-ignore
+                                    return <NoteBlob id={item} subject={
                                     notes.map((item2: any) => {
                                         if (item2.id === item) {
                                             return item2.subject
                                         }
                                     }) }
                                  name={
-                                    notes.map((item2: any) => {
-                                        if (item2.id === item) {
-                                            return item2.name
+                                    notes.map(
+                                        (item2: any) => {
+                                            if (item2.id === item) {
+                                                return item2.name
+                                            }
                                         }
-                                    })
+                                    )
                                 } date={
                                     notes.map((item2: any) => {
                                         if (item2.id === item) {
+                                            console.log(item2.date)
                                             return item2.date
                                         }
                                     })
-                                } >{
+                                } test={true}>{
                                     notes.map((item2: any) => {
                                         if (item2.id === item) {
                                             return item2.name

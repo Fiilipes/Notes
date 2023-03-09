@@ -8,7 +8,7 @@ function MyComponent({content, number}) {
 
     if (number == 1) {
         return (
-            <div className={"py-4"}>
+            <div className={"py-4 ml-8 "}>
                 <EditorContent
                     name={"editorOne"}
                     value={number.toString()}

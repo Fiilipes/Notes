@@ -24,11 +24,11 @@ function Notes({ isAuth, setIsAuth }) {
             {/*    </Link>*/}
             {/*</div>*/}
             <div className={"text-center mt-8"}>
-                <div className={"mb-40"}>
+                <div className={"mb-10"}>
                     <div className={"text-3xl text-gray-700 font-semibold"} >
                         Vítejte na webu
                     </div>
-                    <h1 className={"text-9xl font-black"} id={"gradient"}>
+                    <h1 className={"text-[160px] font-black"} id={"gradient"}>
                         Notes
                     </h1>
                 </div>
@@ -55,6 +55,18 @@ function Notes({ isAuth, setIsAuth }) {
 
                         <p className={"text-gray-700 text-md mt-4 font-bold "}>
                             Zde naleznete informace ke všem nadcházejícím testům.
+                        </p>
+
+                    </div>
+                    <div className={"text-center w-[400px]"}>
+                        <Link to={"/notes/testy"} className={"w-300px"}>
+                            <button className={"bg-[#f5f5f5] text-black py-2 px-4 rounded-full hover:bg-black hover:text-white border-2 border-black transition-colors duration-300 font-bold mt-8"}>
+                                Úkoly
+                            </button>
+                        </Link>
+
+                        <p className={"text-gray-700 text-md mt-4 font-bold "}>
+                            Zde naleznete informace ke všem zadaným úkolům.
                         </p>
 
                     </div>

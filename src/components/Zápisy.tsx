@@ -6,6 +6,7 @@ import NoteBlob from "./subjects/NoteBlob";
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
 import {db} from "../firebase.config";
+import {getAuth} from "firebase/auth";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -93,20 +94,34 @@ export default () => {
     const handleLoad = () => {
         console.log("loaded")
         let myData
+        let myDataSorted
+        let myTests: any[]
         getNotes().then((data) => {
             // @ts-ignore
             myData = data[0]["notes"]
+            // @ts-ignore
+            myTests = data[1]["all"]
             console.log(myData)
             let myNewArray: JSX.Element[] = []
+
+            // @ts-ignore
+            myDataSorted = myData.sort((p1, p2) => (p1.date < p2.date) ? 1 : (p1.date > p2.date) ? -1 : 0)
 
             myData.forEach(
                 (item: any) => {
                     console.log(item)
 
                     myNewArray.push(
-                        <NoteBlob name={item.name} subject={item.subject} date={item.date} id={item.id} key={item.id}/>
+                        <NoteBlob name={item.name} subject={item.subject} date={item.date} id={item.id} test={
+                            myTests.find((item2: any) => {
+                                return item2.zápisy.includes(item.id)
+                            })
+
+                        } key={item.id}/>
                     )
                     console.log(myNewArray)
+
+
                     // @ts-ignore
                     setNotesArr(myNewArray)
                     let counter = 0
@@ -217,7 +232,7 @@ export default () => {
 
 
                             </div>
-                            <div id={"addNewNote"} className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"} onClick={
+                            {getAuth().currentUser?.email === "jarolimfilip07@gmail.com" ?                             <div id={"addNewNote"} className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"} onClick={
                                 () => {
                                     setAddNoteVisible(!addNoteVisible)
                                     setFilterVisible(false)
@@ -235,6 +250,7 @@ export default () => {
 
 
                             </div>
+                : ""}
                         </div>
                         <div className={`absolute mt-[60px] bg-[rgba(0,0,0,0.95)] w-[500px] h-[400px] z-10 mx-auto text-white text-xl font-bold p-4 rounded-[20px] select-none ${
                             filterVisible?"":"hidden"
@@ -341,6 +357,7 @@ export default () => {
                                 </button>
                             </div>
                         </div>
+
                     </div>
                     <div className={"flex flex-col mt-12"}>
                         <div id={"workspace"} className={"grid grid-cols-6 gap-y-12 mb-[50px]"}>

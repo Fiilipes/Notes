@@ -53,6 +53,11 @@ function Navbar({ isAuth, setIsAuth }) {
                 localStorage.setItem("isAuth", "true")
                 setIsAuth(true)
 
+                setInterval(() => {
+                    // @ts-ignore
+                    location.href = localStorage.getItem("lastPage") ? localStorage.getItem("lastPage") : "/notes"
+                } , 1000)
+
                 // profile picture
                 // @ts-ignore
             }
@@ -72,12 +77,15 @@ function Navbar({ isAuth, setIsAuth }) {
 
     return (
         <div>
-            <header className={"flex justify-between items-center  2xl:max-w-6xl xl:max-w-5xl lg:max-w-4xl md:max-w-3xl sm:max-w-48  mx-auto ml-[10%] py-4"}>
-                <Link to={"/notes/"} className={"w-[8%]"}>
+            <header className={"flex justify-between items-center  2xl:max-w-7xl xl:max-w-5xl lg:max-w-4xl md:max-w-3xl sm:max-w-48  mx-auto ml-[10%] py-4"}>
+                <Link to={"/notes/"} className={"w-[8%] flex flex-row items-center"}>
                     {/*
                         logo
                     */}
                     <img src={notesLogo} alt={"logo"} className={"w-16 h-16]"} />
+                    <div className={"flex flex-col ml-2"}>
+                        <h1 className={"text-xl font-black text-black"}>BETA</h1>
+                    </div>
                 </Link>
                 <nav className="flex items-center space-x-6 justify-center w-[200px]">
                     {links.map((link) => (
@@ -90,7 +98,7 @@ function Navbar({ isAuth, setIsAuth }) {
                         </Link>
                     ))}
                 </nav>
-                <div className="flex items-center w-[10px]">
+                <div className="flex items-center w-[150px]">
                     {isAuth ? (
                         <>
                             <button
@@ -99,11 +107,11 @@ function Navbar({ isAuth, setIsAuth }) {
                             >
                                 Logout
                             </button>
-                            {/*<Link to="/profile" className="ml-2 bg-black p-[1px] rounded-full">*/}
-                            {/*    /!* @ts-ignore *!/*/}
-                            {/*    <img src={*/}
-                            {/*        photoURL*/}
-                            {/*    } alt={"profile"} className={"w-[36px] h-[36px] rounded-full  "} />                        </Link>*/}
+                            <Link to="/profile" className="ml-2 bg-black p-[1px] rounded-full">
+                                {/* @ts-ignore */}
+                                <img src={
+                                    photoURL
+                                } alt={"profile"} className={"w-[36px] h-[36px] rounded-full  "} />                        </Link>
 
                         </>
                     ) : (
@@ -119,6 +127,8 @@ function Navbar({ isAuth, setIsAuth }) {
             </header>
 
         </div>
+
+
     )
 }
 export default Navbar;
