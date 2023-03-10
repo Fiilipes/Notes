@@ -1,6 +1,8 @@
 .nav-link {
   position: relative;
   display: inline-block;
+  transition: .3s;
+
 }
 
 .nav-link::before {
@@ -17,4 +19,9 @@
 
 .nav-link:hover::before {
   transform: scaleX(1);
+}
+
+.nav-link:hover {
+  transform: translateY(2px) skewY(-2deg);
+  transition: .3s;
 }

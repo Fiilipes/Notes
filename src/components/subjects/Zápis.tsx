@@ -17,11 +17,13 @@ const getNotes = async () => {
 }
 // fullscreen setup
 import "../Zápis.scss"
+import Navbar from "../Navbar";
 
 
 // @ts-ignore
 function Zápis({id, name, subject, date}) {
     const handle = useFullScreenHandle();
+    const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
 
     console.log(id)
     const [myComponents, setMyComponents] = useState([]);
@@ -334,7 +336,7 @@ function Zápis({id, name, subject, date}) {
         }
         getNotes().then((data) => {
                 // @ts-ignore
-                let myData = data[1]["all"]
+                let myData = data[2]["all"]
                 myData.forEach(
                     (item: any) => {
                         if (item.zápisy.includes(id.toString())) {
@@ -356,7 +358,9 @@ function Zápis({id, name, subject, date}) {
         return (
 
             <div>
-                <div className={"blob"}>
+                <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
+
+                <div className={"blobNotes"}>
 
                 </div>
 
@@ -364,35 +368,45 @@ function Zápis({id, name, subject, date}) {
 
 
                 <div className={"font-lg flex flex-col"}>
-                    {
-                        !fullScreen ? <div className={"flex flex-row justify-center items-end my-4 mb-6"}>
-                            <h1 className={"text-6xl"}>{name}</h1>
+                    <div className={"flex flex-row justify-center items-end my-4 mb-6"}>
+                        <h1 className={"text-6xl"}>{name}</h1>
+                    </div>
 
-                        </div> : <div></div>
-                    }
 
-                    {
-                        !fullScreen ? <div className={"flex flex-row justify-center mb-16"}>
-                            <div className={"w-[110px] h-[40px] text-[16px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
+                    <div className={"flex flex-row justify-center mb-16"}>
+                        <div className={"w-[110px] h-[40px] text-[16px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
                                 Zápis
-                            </div>
-                            <div className={"w-[110px] h-[40px] text-[16px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
+                        </div>
+                        <div className={"w-[110px] h-[40px] text-[16px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
                                 {subject}
-                            </div>
-                            <div className={"w-[110px] h-[40px] text-[16px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
+                        </div>
+                        <div className={"w-[110px] h-[40px] text-[16px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
                                 {date.split(",")[0]}.{date.split(",")[1]}. {date.split(",")[2]}
-                            </div>
-
-                        </div> : <div></div>
-                    }
+                        </div>
+                    </div>
 
 
 
-                    <div className={"absolute w-[200px] h-[100px] font-bold text-black top-[330px] right-0 z-20"} onClick={handle.enter}>
+                    <div className={"absolute w-[200px] h-[100px] font-bold text-black top-[330px] right-0 z-20 cursor-pointer select-none"} onClick={handle.enter}>
                         Full Screen
                     </div>
+                    {
+                        /*
+                        IMPORTANT PART OF THE CODE
+                        DO NOT DELETE
+
+                        ----------------------
+                        Notes &copy; 2023
+                        Made by Filipes
+                        ----------------------
+
+
+                         */
+                    }
                     <FullScreen handle={handle}>
-                        <div id={id} className={"TEXTFIELD mx-auto p-6 pb-16 rounded-2xl w-[96%] bg-[#ddd] mb-24"}>
+                        <div id={id} className={`TEXTFIELD mx-auto p-6 pb-16 rounded-2xl w-[96%] min-h-[300px] bg-[#ddd] mb-24 ${
+                            getAuth().currentUser?.email !== "jarolimfilip07@gmail.com" ? "select-none" : ""
+                        } `} >
 
                             {myComponents.map(component => component)}
 
@@ -400,22 +414,22 @@ function Zápis({id, name, subject, date}) {
                     </FullScreen>
 
                     {getAuth().currentUser?.email === "jarolimfilip07@gmail.com" ?         <div className={"flex flex-row justify-center my-5"}>
-                            <button  onClick={handleAddMyComponent} className={"w-30 h-10 px-4 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Add
+                            <button  onClick={handleAddMyComponent} className={"w-30 h-10 px-4 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-200 ease-in-out mx-1"}>Add
                             </button>
                             <input type="number" id="myNumber" name="myNumber" min="1" max="4" className={"w-12 select-none pl-2 outline-none text-black font-bold border-2 border-black rounded-xl text-xl"} >
 
                             </input>
 
-                            <button onClick={handleSave} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Save</button>
-                            <button onClick={handleLoad} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Load</button>
-                            <button onClick={handleClear} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-100 ease-in-out mx-1"}>Clear</button>
+                            <button onClick={handleSave} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-200 ease-in-out mx-1"}>Save</button>
+                            <button onClick={handleLoad} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-200 ease-in-out mx-1"}>Load</button>
+                            <button onClick={handleClear} className={"w-20 h-10 bg-white border-2 border-black hover:bg-black text-black hover:text-white font-bold text-xl rounded-[10px] transition duration-200 ease-in-out mx-1"}>Clear</button>
                         </div>
                         : ""}
 
 
                 </div>
 
-                <div className={"flex flex-row justify-center"}>
+                <div className={"flex flex-row justify-center mb-16"}>
                     <div className={"flex flex-col w-[420px] min-h-[200px] border-2 border-black rounded-[15px] p-4 m-4 pb-16 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
                         <h2>
                             Zápisy
@@ -438,11 +452,30 @@ function Zápis({id, name, subject, date}) {
                     </div>
                     <div className={"flex flex-col w-[420px] min-h-[200px] border-2 border-black rounded-[15px] p-4 m-4 pb-16 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
                         <h2>
-                            Testy
+                            Test
                         </h2>
                         <p>
-                            Testy, které se týkají tohoto tématu
+                            Test, který se týká tohoto tématu
                         </p>
+                        <div className={"flex flex-row justify-center mt-6"}>
+                            {/*<input type="text" className={"w-full h-[40px] border-2 border-black rounded-[15px] p-2 my-2 shadow-[0_7px_0_rgba(0,0,0,0.5)] outline-none font-bold"} placeholder={"Přidejte test"} onInput={filterTest}/>*/}
+
+                            {
+                                test.length !== 0 ?
+                                    <Link to={"/notes/testy/"+test[0]} className={"w-[80%] text-center border-2 border-black rounded-xl shadow-[0_7px_0_rgba(0,0,0,0.5)] p-2 font-bold"}>
+                                        <h3>
+                                            {test[1]}
+                                        </h3>
+                                    </Link>
+                                    : <div className={"text-sm font-bold flex flex-row items-center justify-center mt-10"}>
+                                        K tomuto tématu zatím není přiřazen žádný test.
+                                    </div>
+                            }
+                        </div>
+
+
+
+
                     </div>
                     <div className={"flex flex-col w-[420px] min-h-[200px] border-2 border-black rounded-[15px] p-4 m-4 pb-16 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
                         <h2>
@@ -452,10 +485,14 @@ function Zápis({id, name, subject, date}) {
                             Procvičte si své znalosti z tohoto zápisu
                         </p>
                     </div>
-                </div>
 
 
             </div>
+            <div className={"text-center font-semibold text-sm mb-4 text-gray-600"}>
+                Made by Filipes | 2023 Notes &copy;
+            </div>
+        </div>
+
         );
 
 

@@ -2,7 +2,7 @@ import './App.css'
 import './index.css'
 import React, {useEffect, useState} from "react";
 
-import {BrowserRouter as Router, Routes, Route, Link, useLocation} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate} from "react-router-dom";
 
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
@@ -55,7 +55,7 @@ function App() {
             let myDateArray:any[] = []
 
             // @ts-ignore
-            let myData2 = data[1]["all"]
+            let myData2 = data[2]["all"]
             let myIdArray2:any[] = []
             let myNameArray2:any[] = []
             let mySubjectArray2:any[] = []
@@ -117,14 +117,16 @@ function App() {
         () => {
             // get items from firestore
             handleLoad()
-
         }, []
     )
+
+
 
     // @ts-ignore
     return (
         <>
-            <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
+
+
 
 
             <Routes>

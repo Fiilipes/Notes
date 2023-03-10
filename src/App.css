@@ -22,7 +22,7 @@ blockquote {
   padding-left: 1rem;
 }
 
-.blob {
+.blobNotes {
   position: absolute;
   width: 200px;
   height: 200px;
@@ -43,9 +43,60 @@ blockquote {
           75vw 650px 25px 45px rgba(206, 114, 236, 0.3);
 
 
+}
+.blobSS {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: -200px;
+  top: -200px;
+  z-index: -99;
 
-
-
+  border-radius: 500px;
+  box-shadow:
+          195px 165px 25px 8px rgba(211, 158, 89, 0.25),
+          195px 215px 25px 12px rgba(189, 175, 87, 0.25),
+          355px 155px 25px 10px rgba(206, 114, 236, 0.35),
+          100vw 150px 25px 12px rgba(189, 59, 123, 0.31),
+          105vw 260px 25px 12px rgba(194, 222, 98, 0.28),
+          40vw 750px 25px 18px rgba(197, 137, 78, 0.32),
+          50vw 700px 25px 80px rgba(216, 239, 114, 0.32),
+          65vw 750px 25px 26px rgba(215, 73, 73, 0.32),
+          75vw 650px 25px 45px rgba(206, 114, 236, 0.3);
 
 
 }
+
+#notesLogoMain {
+    width: 300px;
+    height: 300px;
+}
+#notesLogoText {
+    font-size: 130px;
+    font-weight: 900;
+    padding-top: 50px;
+    padding-left:20px ;
+    width: 300px;
+    height: 300px;
+}
+#notesLogo {
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: appear 1s ease-in-out;
+}
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateX(-5000px) rotate3d(0, 0, 1, 360deg) scale3d(0.5, 0.5, 0.5) matrix(1, 0, 0, 1, 0, 0) skew(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateX(0) rotate3d(0, 0, 1, 0deg) scale3d(1, 1, 1) matrix(1, 0, 0, 1, 0, 0) skew(0deg);
+    }
+}
+

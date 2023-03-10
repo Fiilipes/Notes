@@ -6,6 +6,8 @@ import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/fire
 import {db} from "../../firebase.config";
 import {Link} from "react-router-dom";
 import NoteBlob from "./NoteBlob";
+import {getAuth} from "firebase/auth";
+import Navbar from "../Navbar";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -14,6 +16,7 @@ const getNotes = async () => {
 }
 // @ts-ignore
 function Test({id, name, subject, date}) {
+    const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
 
     const [notes, setNotes] = useState([])
     const [filter, setFilter] = useState(false)
@@ -54,7 +57,7 @@ function Test({id, name, subject, date}) {
             // @ts-ignore
             let myData = data[0]["notes"]
             // @ts-ignore
-            let myOtherData = data[1]["all"]
+            let myOtherData = data[2]["all"]
             let myNewData:any[] = []
 
             console.log(myData)
@@ -101,7 +104,7 @@ function Test({id, name, subject, date}) {
                 setNotes(myData[0]["notes"])
                              console.log("----")
                 // @ts-ignore
-                myData[1]["all"].forEach(
+                myData[2]["all"].forEach(
                     (item: any) => {
                         if (item.id === id) {
                             console.log(item)
@@ -120,23 +123,25 @@ function Test({id, name, subject, date}) {
         // @ts-ignore
         return (
             <div>
-                <div className={"blob"}>
+                <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
+
+                <div className={"blobNotes"}>
 
                 </div>
                 <div className={"font-lg flex flex-col"}>
 
-                    <div className={"flex flex-row justify-center items-end mb-4"}>
-                        <h1>{name}</h1>
+                    <div className={"flex flex-row justify-center items-end mb-6 my-4"}>
+                        <h1 className={"text-6xl"}>{name}</h1>
 
                     </div>
                     <div className={"flex flex-row justify-center mb-8 "}>
-                        <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
+                        <div className={"w-[110px] h-[40px] text-sm bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
                             Test
                         </div>
-                        <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
+                        <div className={"w-[110px] h-[40px] text-sm bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
                             {subject}
                         </div>
-                        <div className={"w-[150px] h-[60px] bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
+                        <div className={"w-[110px] h-[40px] text-sm bg-white border-2 border-black rounded-[15px] font-bold text-lg flex justify-center items-center mx-2 shadow-[0_7px_0_rgba(0,0,0,0.5)]"}>
                             {date.split(",")[0]}.{date.split(",")[1]}. {date.split(",")[2]}
                         </div>
                     </div>
@@ -148,15 +153,19 @@ function Test({id, name, subject, date}) {
                             <p>
                                 Zápisy, které se vážou k tomuto testu
                             </p>
-                            <div className={"flex flex-row justify-center"}>
-                                <input type="text" className={"w-full h-[40px] border-2 border-black rounded-[15px] p-2 my-2 shadow-[0_7px_0_rgba(0,0,0,0.5)] outline-none font-bold"} placeholder={"Přidejte zápis"} onInput={filterZápis}/>
+                            {getAuth().currentUser?.email === "jarolimfilip07@gmail.com" ? <div>
+                                <div className={"flex flex-row justify-center"}>
+                                    <input type="text" className={"w-full h-[40px] border-2 border-black rounded-[15px] p-2 my-2 shadow-[0_7px_0_rgba(0,0,0,0.5)] outline-none font-bold"} placeholder={"Přidejte zápis"} onInput={filterZápis}/>
 
-                            </div>
-                            <div>
-                                <div className={"grid grid-cols-2 gap-4 text-black"}>
-                                    {zápisyFilter.length !== 0 ? zápisyFilter.map((item: any) => { return <div className={"flex flex-col justify-center items-center border-2 border-black rounded-[15px] font-semibold p-1 cursor-pointer m-2"} onClick={chosenNote} id={"ZápisFilter-"+item.id}>{item.name}</div> }) : ""}
                                 </div>
-                            </div>
+                                <div>
+                                    <div className={"grid grid-cols-2 text-black"}>
+                                        {zápisyFilter.length !== 0 ? zápisyFilter.map((item: any) => { return <div className={"flex flex-col justify-center items-center border-2 border-black rounded-[15px] font-semibold p-1 cursor-pointer m-2"} onClick={chosenNote} id={"ZápisFilter-"+item.id}>{item.name}</div> }) : ""}
+                                    </div>
+                                </div>
+                            </div> : "" }
+
+
                             <div className={"grid grid-cols-2 gap-y-12 mx-auto mt-8"}>
                                 {/*@ts-ignore*/}
                                 {htmlNotes.length !== 0 ? htmlNotes.zápisy.map((item: any) => {

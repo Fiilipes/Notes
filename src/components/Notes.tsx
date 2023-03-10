@@ -4,6 +4,7 @@ import notesLogo from "../assets/img/notesLogo.png";
 import {Link} from "react-router-dom";
 import logo from "../assets/img/filipesLogo.png";
 import "./Notes.scss";
+import Navbar from "./Navbar";
 // @ts-ignore
 
 function Notes({ isAuth, setIsAuth }) {
@@ -15,7 +16,9 @@ function Notes({ isAuth, setIsAuth }) {
 
     return (
         <div id={"main h-[100vh]"}>
-            <div className={"blob"}>
+            <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
+
+            <div className={"blobNotes"}>
 
             </div>
             {/*<div>*/}
@@ -58,18 +61,18 @@ function Notes({ isAuth, setIsAuth }) {
                         </p>
 
                     </div>
-                    <div className={"text-center w-[400px]"}>
-                        <Link to={"/notes/testy"} className={"w-300px"}>
-                            <button className={"bg-[#f5f5f5] text-black py-2 px-4 rounded-full hover:bg-black hover:text-white border-2 border-black transition-colors duration-300 font-bold mt-8"}>
-                                Úkoly
-                            </button>
-                        </Link>
+                    {/*<div className={"text-center w-[400px]"}>*/}
+                    {/*    <Link to={"/notes/testy"} className={"w-300px"}>*/}
+                    {/*        <button className={"bg-[#f5f5f5] text-black py-2 px-4 rounded-full hover:bg-black hover:text-white border-2 border-black transition-colors duration-300 font-bold mt-8"}>*/}
+                    {/*            Úkoly*/}
+                    {/*        </button>*/}
+                    {/*    </Link>*/}
 
-                        <p className={"text-gray-700 text-md mt-4 font-bold "}>
-                            Zde naleznete informace ke všem zadaným úkolům.
-                        </p>
+                    {/*    <p className={"text-gray-700 text-md mt-4 font-bold "}>*/}
+                    {/*        Zde naleznete informace ke všem zadaným úkolům.*/}
+                    {/*    </p>*/}
 
-                    </div>
+                    {/*</div>*/}
                     <div className={"text-center w-[400px]"}>
                         <Link to={"/notes/procvičování"} className={"w-300px"}>
                             <button className={"bg-[#f5f5f5] text-black py-2 px-4 rounded-full hover:bg-black hover:text-white border-2 border-black transition-colors duration-300 font-bold mt-8"}>

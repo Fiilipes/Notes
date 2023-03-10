@@ -17,6 +17,7 @@ const getSS = async () => {
 function Profile() {
     const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
     const [name, setName] = useState("Notes user");
+    const [email, setEmail] = useState("notesuser@gmail.com");
     const  [verificationCode, setVerificationCode] = useState("")
     const [verified, setVerified] = useState(false)
 
@@ -28,6 +29,8 @@ function Profile() {
             setPhotoURL(user.photoURL)
             // @ts-ignore
             setName(user.displayName)
+            // @ts-ignore
+            setEmail(user.email)
             // ...
         } else {
             // User is signed out
@@ -64,14 +67,14 @@ function Profile() {
                         item.code = code
                         // @ts-ignore
                         item.avatar = auth.currentUser.photoURL
-                        item.notesCoins = 0
+                        item.ssCoins = 0
                         stopSign = true
                     }
                 }
             )
             if (!stopSign) {
                 // @ts-ignore
-                myVerification.push({uid: auth.currentUser.uid, email: auth.currentUser.email, username: auth.currentUser.displayName, avatar: auth.currentUser.photoURL,notesCoins: 0, code: code})
+                myVerification.push({uid: auth.currentUser.uid, email: auth.currentUser.email, username: auth.currentUser.displayName, avatar: auth.currentUser.photoURL,ssCoins: 0, code: code})
             }
 
             setDoc(doc(db, "ssbot", "verification"), {
@@ -127,22 +130,38 @@ function Profile() {
 
     if (localStorage.getItem("isAuth") === "true") {
         return (
-            <div>
-                <div className={"flex flex-col w-[96%] mx-auto mt-8 items-center"}>
-                    <img src={photoURL} alt={"profile picture"} className={"w-32 h-32 rounded-2xl"}/>
-                    <h1 className={"text-3xl mt-4"}>{name}</h1>
-                </div>
-                <div className={"flex flex-col justify-center items-center"}>
-                    <button onClick={verify} className={"bg-[#7289da] text-white p-2 rounded-md mt-4 font-bold shadow-[0_5px_0_rgba(114,137,218,0.5)]"}>
-                        Verify through discord
-                    </button>
-                    <div id={"verificationCode"} className={"text-center mt-4 text-[#7289da] font-bold"}>
-                        {verificationCode !== "" ?<div> Your verification code is: <div className={"font-black text-8xl"}>verificationCode</div></div> : <div></div>}
+            <div className={"flex flex-row justify-center w-[96%] mx-auto mt-8 items-center pb-10"}>
+
+                <div className={"flex flex-col mx-6 justify-start items-center border-2 border-black rounded-3xl w-[300px]  h-[400px] shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
+                    <div className={"text-2xl font-black bg-black text-white w-[320px] mt-[-10px] rounded-[inherit] p-4 shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
+                        Account info
                     </div>
-                    <div>
-                        {verified ? "You are verified" : "You are not verified"}
+                    <div className={"flex flex-col w-[96%] mx-auto mt-14 items-center"}>
+                        <img src={photoURL} alt={"profile picture"} className={"w-32 h-32 rounded-2xl"}/>
+                        <h1 className={"text-2xl mt-4"}>{name}</h1>
+                        <div className={"text-md font-bold "}>{email}</div>
                     </div>
+
                 </div>
+                <div className={"flex flex-col mx-6 justify-start items-center border-2 border-black rounded-3xl w-[300px]  h-[400px] shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
+                    <div className={"text-2xl font-black bg-black text-white w-[320px] mt-[-10px] rounded-[inherit] p-4  shadow-[0_5px_0_rgba(0,0,0,0.5)]"}>
+                        Discord Verification
+                    </div>
+
+                    <div className={"flex flex-col justify-center items-center"}>
+                        <button onClick={verify} className={"bg-[#7289da] text-white p-2 rounded-md mt-4 font-bold shadow-[0_5px_0_rgba(114,137,218,0.5)]"}>
+                            Verify through discord
+                        </button>
+                        <div id={"verificationCode"} className={"text-center mt-4 text-[#7289da] font-bold"}>
+                            {verificationCode !== "" ?<div> Your verification code is: <div className={"font-black text-8xl"}>verificationCode</div></div> : <div></div>}
+                        </div>
+                        <div>
+                            {verified ? "You are verified" : "You are not verified"}
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
         )

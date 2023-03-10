@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import {getAuth} from "firebase/auth";
 
 // @ts-ignore
 function MyComponent({content, number}) {
@@ -12,8 +13,9 @@ function MyComponent({content, number}) {
                 <EditorContent
                     name={"editorOne"}
                     value={number.toString()}
-                    editor={useEditor({content: content, extensions: [StarterKit],})}
+                    editor={useEditor({content: content, extensions: [StarterKit], editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                     className={"mx-auto"}
+
                 />
             </div>
         );
@@ -24,7 +26,7 @@ function MyComponent({content, number}) {
                     <EditorContent
                         name={"editorsTwo"}
                         value={number.toString()}
-                        editor={useEditor({content: content[0], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[0], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
                     />
                 </div>
@@ -32,7 +34,7 @@ function MyComponent({content, number}) {
                     <EditorContent
                         name={"editorsTwo"}
                         value={number.toString()}
-                        editor={useEditor({content: content[1], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[1], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
                     />
                 </div>
@@ -47,7 +49,7 @@ function MyComponent({content, number}) {
                         value={number.toString()}
 
 
-                        editor={useEditor({content: content[0], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[0], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
                     />
                 </div>
@@ -56,7 +58,7 @@ function MyComponent({content, number}) {
                         name={"editorsThree"}
                         value={number.toString()}
 
-                        editor={useEditor({content: content[1], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[1], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
 
                     />
@@ -66,7 +68,7 @@ function MyComponent({content, number}) {
                         name={"editorsThree"}
                         value={number.toString()}
 
-                        editor={useEditor({content: content[2], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[2], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
 
                     />
@@ -83,7 +85,7 @@ function MyComponent({content, number}) {
                         value={number.toString()}
 
 
-                        editor={useEditor({content: content[0], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[0], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
                     />
                 </div>
@@ -92,17 +94,7 @@ function MyComponent({content, number}) {
                         name={"editorsFour"}
                         value={number.toString()}
 
-                        editor={useEditor({content: content[1], extensions: [StarterKit],})}
-                        className={"mx-auto"}
-
-                    />
-                </div>
-                <div className={"bg-[#ccc] p-6 rounded-xl w-[250px] min-h-[80px] shadow-[0_10px_0_rgba(0,0,0,0.5)]"}>
-                    <EditorContent
-                        name={"editorsFour"}
-                        value={number.toString()}
-
-                        editor={useEditor({content: content[2], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[1], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
 
                     />
@@ -112,7 +104,17 @@ function MyComponent({content, number}) {
                         name={"editorsFour"}
                         value={number.toString()}
 
-                        editor={useEditor({content: content[3], extensions: [StarterKit],})}
+                        editor={useEditor({content: content[2], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
+                        className={"mx-auto"}
+
+                    />
+                </div>
+                <div className={"bg-[#ccc] p-6 rounded-xl w-[250px] min-h-[80px] shadow-[0_10px_0_rgba(0,0,0,0.5)]"}>
+                    <EditorContent
+                        name={"editorsFour"}
+                        value={number.toString()}
+
+                        editor={useEditor({content: content[3], extensions: [StarterKit],editable: getAuth().currentUser?.email === "jarolimfilip07@gmail.com"})}
                         className={"mx-auto"}
 
                     />

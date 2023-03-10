@@ -25,7 +25,7 @@ function NoteBlob({name, subject, id, date, test}) {
                 {/*Emoji*/}
                 <div className={"flex flex-row items-center justify-between w-[inherit]"}>
                     <div>
-                        {">"} {subject}
+                        {subject}
                     </div>
                     <div className={"flex flex-row items-center justify-between"}>
                         {/*{*/}
@@ -62,21 +62,22 @@ function NoteBlob({name, subject, id, date, test}) {
                         {
                             // @ts-ignore
                             Math.ceil((Math.floor(((new Date()) - (new Date((new Date()).getFullYear(), 0, 1))) /
-                                (24 * 60 * 60 * 1000))) / 7) === date[3] && new Date().getDate() <= date[0] + 1 ? <div className={"bg-[#35f] mx-[1.5px] rounded-[10px] w-[30px] h-[15px] text-center flex justify-center items-center px-3"}>
+                                (24 * 60 * 60 * 1000))) / 7) === date[3] && new Date().getDate() <= date[0] + 1 ? <div className={"bg-[#35f] mx-[1.5px] rounded-[10px] w-[30px] h-[13.5px] text-center flex justify-center items-center px-3"}>
                                 New
                             </div> : ""
                         }
                         {
-                            isTest ? <div className={"bg-[#f35] mx-[1.5px] rounded-[10px] w-[15px] h-[15px] text-center flex justify-center items-center px-"}>
+                            isTest ? <div className={"bg-[#f35] mx-[1.5px] rounded-[10px] w-[13.5px] h-[13.5px] text-center flex justify-center items-center px-"}>
                                 !
                             </div> : ""
                         }
 
 
 
-                        <div className={"bg-[#f63] mx-[1.5px] rounded-[10px] w-[15px] h-[15px] text-center flex justify-center items-center px-"}>
-                            ?
+                        <div className={"bg-[#598] mx-[1.5px] rounded-[10px] w-[13.5px] h-[13.5px] text-center flex justify-center items-center px-"}>
+                            $
                         </div>
+
 
                     </div>
                 </div>
