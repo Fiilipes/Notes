@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
-import {db} from "../firebase.config";
+import {db} from "../../../firebase.config";
 import {Link} from "react-router-dom";
-import PracticeBlob from "./subjects/PractiseBlob";
-import Navbar from "./Navbar";
+import PracticeBlob from "../Blobs/PractiseBlob";
+import Navbar from "../../Navbar";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {

@@ -2,13 +2,14 @@
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React, { useEffect, useState } from 'react'
-import NoteBlob from "./subjects/NoteBlob";
+import NoteBlob from "../Blobs/NoteBlob";
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
-import {db} from "../firebase.config";
+import {db} from "../../../firebase.config";
 import {getAuth} from "firebase/auth";
 import {Link} from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../../Navbar";
+import login from "../../Login";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -20,7 +21,6 @@ export default () => {
     const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
 
     const [filterVisible, setFilterVisible] = useState(false)
-    const [addNoteVisible, setAddNoteVisible] = useState(false)
     const [notesArr, setNotesArr] = useState([])
     const [chartNoteVisible, setChartNoteVisible] = useState(false)
 
@@ -189,6 +189,8 @@ export default () => {
 
     useEffect(
         () => {
+            console.log("useEffect")
+
             // get items from firestore
             handleLoad()
         }, []
@@ -240,7 +242,6 @@ export default () => {
                                      className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}
                                      onClick={() => {
                                          setFilterVisible(!filterVisible);
-                                         setAddNoteVisible(false);
                                      }}>
                                     {/*Arrow aiming down without the arrow*/}
                                     {/*Line*/}
@@ -254,8 +255,8 @@ export default () => {
 
                                 </div>
                                 {getAuth().currentUser?.email === "jarolimfilip07@gmail.com" ? <div id={"addNewNote"}
-                                                                                                    className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}
-                                                                                                    onClick={() => setChartNoteVisible(!chartNoteVisible)}>
+                                              className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}
+                                              onClick={() => setChartNoteVisible(true)}>
                                         {/*Plus*/}
                                         <div
                                             className={"w-[28px] h-[5px] mt-5 bg-black mx-auto rounded-[10px]"}/>
@@ -267,7 +268,7 @@ export default () => {
                                     : ""}{getAuth().currentUser?.email === "jarolimfilip07@gmail.com" ?
                                 <div id={"addNewNote"}
                                      className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}
-                                     onClick={() => setChartNoteVisible(!chartNoteVisible)}>
+                                     >
                                     {/*EDIT*/}
 
                                     <div
@@ -412,6 +413,7 @@ export default () => {
                                     </div>
 
                                 </div> : ""}
+
                                 {notesArr.map((item) => {
                                     return item;
                                 })}

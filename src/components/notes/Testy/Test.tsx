@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import MyThreeComponents from "./MyThreeComponents";
-import MyComponent from "./MyComponent";
+import MyComponent from "../MyComponent";
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
-import {db} from "../../firebase.config";
+import {db} from "../../../firebase.config";
 import {Link} from "react-router-dom";
-import NoteBlob from "./NoteBlob";
+import NoteBlob from "../Blobs/NoteBlob";
 import {getAuth} from "firebase/auth";
-import Navbar from "../Navbar";
+import Navbar from "../../Navbar";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -19,7 +18,6 @@ function Test({id, name, subject, date}) {
     const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
 
     const [notes, setNotes] = useState([])
-    const [filter, setFilter] = useState(false)
     const [zápisyFilter, setZápisyFilter] = useState([])
     const [htmlNotes, setHtmlNotes] = useState([])
 
@@ -217,7 +215,7 @@ function Test({id, name, subject, date}) {
 
 
     } else {
-        localStorage.setItem("lastPage", "/notes/testy/"+id)
+        localStorage.setItem("lastPage", "/notes/Testy/"+id)
         location.href = "/login"
         return <div></div>
     }

@@ -6,20 +6,18 @@ import {BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate} 
 
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import Notes from "./components/Notes";
-import Zápisy from "./components/Zápisy";
-import Biologie from "./components/subjects/Biologie";
-import Clock from "./components/Clock";
+import Notes from "./components/notes/Notes";
+import Zápisy from "./components/notes/Zápisy/Zápisy";
 import Profile from "./components/Profile";
-import Zápis from "./components/subjects/Zápis";
-import Testy from "./components/Testy";
-import Procvičování from "./components/Procvičování";
+import Zápis from "./components/notes/Zápisy/Zápis";
+import Testy from "./components/notes/Testy/Testy";
+import Procvičování from "./components/notes/Procvičování/Procvičování";
 
 import Login from "./components/Login";
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
 import {db} from "./firebase.config";
-import Test from "./components/subjects/Test";
+import Test from "./components/notes/Testy/Test";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -130,10 +128,10 @@ function App() {
 
 
             <Routes>
-                <Route  path="/" element={<Home isAuth={isAuth} setIsAuth={setIsAuth} />} />
+                <Route  path="/" element={<Home />} />
                 <Route  path="/notes" element={<Notes isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route path={"/notes/zápisy"} element={<Zápisy/>} />
-                <Route path={"/notes/testy"} element={<Testy />} />
+                <Route path={"/notes/Testy"} element={<Testy />} />
                 <Route path={"/notes/procvičování"} element={<Procvičování />} />
                 <Route path={"/login"} element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route path={"/profile"} element={<Profile />} />

@@ -9,7 +9,7 @@ function TestyBlob({item}) {
 
     // @ts-ignore
     return (
-        <Link to={"/notes/testy/"+item.id} className={"flex flex-col items-center justify-start w-[280px] h-[125px] bg-white border-2 border-black rounded-3xl px-4 pb-6 pt-4 cursor-pointer shadow-[0_25px_0_rgba(0,0,0,1)] hover:translate-y-2 transition duration-300 text-center"}>
+        <Link to={"/notes/Testy/"+item.id} className={"flex flex-col items-center justify-start w-[280px] h-[125px] bg-white border-2 border-black rounded-3xl px-4 pb-6 pt-4 cursor-pointer shadow-[0_25px_0_rgba(0,0,0,1)] hover:translate-y-2 transition duration-300 text-center"}>
             <div className={"text-[25px] font-bold mb-2"}>
                 {item.theme}
             </div>

@@ -1,18 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
-import notesLogo from "../assets/img/notesLogo.png";
+import notesLogo from "../../assets/img/notesLogo.png";
 
 import {Link} from "react-router-dom";
-import logo from "../assets/img/filipesLogo.png";
+import logo from "../../assets/img/filipesLogo.png";
 import "./Notes.scss";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 // @ts-ignore
 
 function Notes({ isAuth, setIsAuth }) {
-
-    const myRef = useRef(null)
-
-    // @ts-ignore
-    const executeScroll = () => myRef.current.scrollIntoView()
 
     return (
         <div id={"main h-[100vh]"}>
@@ -21,11 +16,6 @@ function Notes({ isAuth, setIsAuth }) {
             <div className={"blobNotes"}>
 
             </div>
-            {/*<div>*/}
-            {/*    <Link to={"/notes/zápisy"} className={"w-300px"}>*/}
-            {/*        Zápisy*/}
-            {/*    </Link>*/}
-            {/*</div>*/}
             <div className={"text-center mt-8"}>
                 <div className={"mb-10"}>
                     <div className={"text-3xl text-gray-700 font-semibold"} >

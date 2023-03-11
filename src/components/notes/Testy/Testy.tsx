@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
-import {db} from "../firebase.config";
+import {db} from "../../../firebase.config";
 import {Link} from "react-router-dom";
-import ProcviOvNBlob from "./subjects/TestyBlob";
-import TestyBlob from "./subjects/TestyBlob";
+import ProcviOvNBlob from "../Blobs/TestyBlob";
+import TestyBlob from "../Blobs/TestyBlob";
 import {getAuth} from "firebase/auth";
-import Navbar from "./Navbar";
+import Navbar from "../../Navbar";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -16,7 +16,7 @@ const getNotes = async () => {
 
 function Testy() {
     const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
-
+    const [testChartVisible, setTestChartVisible] = useState(false)
     const [tests, setTests] = useState([])
     const [newTestHTML, setNewTestHTML] = useState(false)
 
@@ -283,7 +283,10 @@ function Testy() {
 
                                 </div>
                                 {getAuth().currentUser?.email === "jarolimfilip07@gmail.com" ? <div id={"addNewNote"}
-                                                                                                    className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}>
+                                   className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}
+                                    onClick={() => setTestChartVisible(!testChartVisible)}>
+
+
                                         {/*Plus*/}
                                         <div
                                             className={"w-[28px] h-[5px] mt-5 bg-black mx-auto rounded-[10px]"}/>
@@ -312,40 +315,34 @@ function Testy() {
 
 
                         <div id={"allTests"} className={"grid grid-cols-3  gap-y-12 gap-x-[28px]"}>
-                            {tests}
-                            <div
-                                className={"flex flex-col items-center justify-start w-[300px] h-[155px] bg-[rgba(255,255,255,0.1)] border-2 border-black rounded-3xl px-4 pb-6 pt-6 cursor-pointer shadow-[0_19px_0_rgba(0,0,0,0.65)]  text-center"}>
-                                {newTestHTML ? <><input type={"text"}
-                                                        className={"text-2xl py-1 font-bold mb-2 w-[250px] outline-none border-2 border-black rounded-xl px-4"}
-                                                        required={true} placeholder={"Téma"}
-                                                        id={"newTestThemeInput"}/>
-                                    <div className={"flex "}>
-                                        <input type={"text"}
-                                               className={"flex justify-center items-center text-center font-semibold rounded-2xl mx-1 border-2 border-black text-[14px] w-[100px] h-[30px] shadow-[0_4px_0_rgba(0,0,0,0.7)] outline-none"}
-                                               required={true} placeholder={"Předmět"}
-                                               id={"newTestSubjectInput"}/>
+                            {testChartVisible ? <div
+                                className={"flex flex-col items-center justify-start w-[300px] h-[155px] bg-[rgba(255,255,255,0.1)] border-2 border-black rounded-3xl px-4 pb-6 pt-6 cursor-pointer shadow-[0_19px_0_rgba(0,0,0,0.65)]  text-center"}><input type={"text"}
+                                                                                                                                                                                                                                                             className={"text-2xl py-1 font-bold mb-2 w-[250px] outline-none border-2 border-black rounded-xl px-4"}
+                                                                                                                                                                                                                                                             required={true} placeholder={"Téma"}
+                                                                                                                                                                                                                                                             id={"newTestThemeInput"}/>
+                                <div className={"flex "}>
+                                    <input type={"text"}
+                                           className={"flex justify-center items-center text-center font-semibold rounded-2xl mx-1 border-2 border-black text-[14px] w-[100px] h-[30px] shadow-[0_4px_0_rgba(0,0,0,0.7)] outline-none"}
+                                           required={true} placeholder={"Předmět"}
+                                           id={"newTestSubjectInput"}/>
 
-                                        <input type={"date"}
-                                               className={"flex justify-center items-center text-center font-semibold rounded-2xl mx-1 border-2 border-black text-[14px] w-[150px] h-[30px] shadow-[0_4px_0_rgba(0,0,0,0.7)] outline-none px-2 "}
-                                               required={true}
-                                               id={"newTestDateInput"}/>
+                                    <input type={"date"}
+                                           className={"flex justify-center items-center text-center font-semibold rounded-2xl mx-1 border-2 border-black text-[14px] w-[150px] h-[30px] shadow-[0_4px_0_rgba(0,0,0,0.7)] outline-none px-2 "}
+                                           required={true}
+                                           id={"newTestDateInput"}/>
 
-                                    </div>
-                                    <div
-                                        className={"w-[100px] h-[25px] text-sm border-2 font-bold mt-4 border-black bg-white hover:bg-black hover:text-white text-black transition duration-300 rounded-xl "}
-                                        onClick={submitCreateNewTestForm}>
-                                        Submit
-                                    </div>
-                                </> : <div className={""} onClick={() => setNewTestHTML(!newTestHTML)}>
-                                    {/*plus icon*/}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                                         viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                                    </svg>
+                                </div>
+                                <div
+                                    className={"w-[100px] h-[25px] text-sm border-2 font-bold mt-4 border-black bg-white hover:bg-black hover:text-white text-black transition duration-300 rounded-xl "}
+                                    onClick={submitCreateNewTestForm}>
+                                    Submit
+                                </div>
+                            </div> : ""}
 
-                                </div>}
+                            {tests.map((item) => {
+                                return item;
+                            })}
+
 
                             </div>
 
@@ -362,7 +359,6 @@ function Testy() {
                         </div>
 
                     </div>
-                </div>
             </>
 
         )

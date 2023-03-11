@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
-import MyThreeComponents from "./MyThreeComponents";
-import MyComponent from "./MyComponent";
+import MyComponent from "../MyComponent";
 import {getAuth, onAuthStateChanged, getAdditionalUserInfo, signInAnonymously} from "firebase/auth";
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
-import {db} from "../../firebase.config";
+import {db} from "../../../firebase.config";
 import {Link} from "react-router-dom";
-import NoteBlob from "./NoteBlob";
+import NoteBlob from "../Blobs/NoteBlob";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -16,8 +15,8 @@ const getNotes = async () => {
     return data.docs.map((doc) => ({...doc.data(), id: doc.id} ))
 }
 // fullscreen setup
-import "../Zápis.scss"
-import Navbar from "../Navbar";
+import "./Zápis.scss"
+import Navbar from "../../Navbar";
 
 
 // @ts-ignore
@@ -43,10 +42,6 @@ function Zápis({id, name, subject, date}) {
 
     }
 
-    const handleAddThreeMyComponents = () => {
-        // @ts-ignore
-        setMyComponents([...myComponents, <MyThreeComponents key={myComponents.length} content={["text", "text", "text"]} />])
-    }
 
     const handleSave = () => {
         // Save content to local storage
@@ -462,7 +457,7 @@ function Zápis({id, name, subject, date}) {
 
                             {
                                 test.length !== 0 ?
-                                    <Link to={"/notes/testy/"+test[0]} className={"w-[80%] text-center border-2 border-black rounded-xl shadow-[0_7px_0_rgba(0,0,0,0.5)] p-2 font-bold"}>
+                                    <Link to={"/notes/Testy/"+test[0]} className={"w-[80%] text-center border-2 border-black rounded-xl shadow-[0_7px_0_rgba(0,0,0,0.5)] p-2 font-bold"}>
                                         <h3>
                                             {test[1]}
                                         </h3>
