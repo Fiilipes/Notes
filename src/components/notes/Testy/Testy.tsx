@@ -7,6 +7,7 @@ import ProcviOvNBlob from "../Blobs/TestyBlob";
 import TestyBlob from "../Blobs/TestyBlob";
 import {getAuth} from "firebase/auth";
 import Navbar from "../../Navbar";
+import notesLogo from "../../../assets/img/notesLogo.png";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -230,12 +231,16 @@ function Testy() {
 
 
     useEffect(() => {
+        // set title of the page
+        document.title = "Notes | Testy"
+        // @ts-ignore
+        document.querySelector("link[rel*='icon']").setAttribute('href', notesLogo);
+
         getData()
     },[])
 
     if (localStorage.getItem("isAuth") === "true") {
         return (
-            <><Navbar isAuth={isAuth} setIsAuth={setIsAuth}/>
                 <div className={"flex flex-col w-[96%] mx-auto mt-8 items-center pb-10"}>
                     <div className={"blobNotes"}>
 
@@ -359,7 +364,6 @@ function Testy() {
                         </div>
 
                     </div>
-            </>
 
         )
 

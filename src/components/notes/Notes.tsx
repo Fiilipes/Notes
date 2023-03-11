@@ -9,9 +9,18 @@ import Navbar from "../Navbar";
 
 function Notes({ isAuth, setIsAuth }) {
 
+    useEffect(
+        () => {
+            // set title of the page
+            document.title = "Notes"
+            // @ts-ignore
+            document.querySelector("link[rel*='icon']").setAttribute('href', notesLogo);
+
+        }, []
+    )
+
     return (
         <div id={"main h-[100vh]"}>
-            <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
 
             <div className={"blobNotes"}>
 

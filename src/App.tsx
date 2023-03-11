@@ -18,6 +18,8 @@ import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
 import {db} from "./firebase.config";
 import Test from "./components/notes/Testy/Test";
+import TestView from "./components/TestView";
+import Events from "./components/events/Events";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -123,13 +125,14 @@ function App() {
     // @ts-ignore
     return (
         <>
-
-
+            {/*@ts-ignore*/}
+            <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
 
 
             <Routes>
-                <Route  path="/" element={<Home />} />
-                <Route  path="/notes" element={<Notes isAuth={isAuth} setIsAuth={setIsAuth} />} />
+                <Route path="/" element={<Home isAuth={isAuth} setIsAuth={setIsAuth} />} />
+                <Route path="/notes" element={<Notes isAuth={isAuth} setIsAuth={setIsAuth} />} />
+                <Route path={"/events"} element={<Events />} />
                 <Route path={"/notes/zápisy"} element={<Zápisy/>} />
                 <Route path={"/notes/Testy"} element={<Testy />} />
                 <Route path={"/notes/procvičování"} element={<Procvičování />} />
@@ -140,7 +143,7 @@ function App() {
                     console.log("item")
                     console.log(item)
                     return (
-                        <Route path={`/notes/zápisy/${item}`} element={<Zápis id={item} name={helperNameArray[index]} subject={helperSubjectArray[index]} date={helperDateArray[index]} />} />
+                        <Route path={`/notes/zápisy/${item}`} element={<Zápis id={item} name={helperNameArray[index]} subject={helperSubjectArray[index]} date={helperDateArray[index]} isAuth={isAuth} setIsAuth={setIsAuth} />} />
                     )
                 })}
                 {helperIdArray2.map((item: any, index: any) => {

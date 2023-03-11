@@ -5,6 +5,7 @@ import {db} from "../../../firebase.config";
 import {Link} from "react-router-dom";
 import PracticeBlob from "../Blobs/PractiseBlob";
 import Navbar from "../../Navbar";
+import notesLogo from "../../../assets/img/notesLogo.png";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -24,8 +25,14 @@ function Procvičování() {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
+        // set title of the page
+        document.title = "Notes | Procvičování"
+        // @ts-ignore
+        document.querySelector("link[rel*='icon']").setAttribute('href', notesLogo);
+
         getNotes().then(
             (data) => {
+
                 // @ts-ignore
                 let myData = data[1]["all"]
                 setProcvičování(myData)
@@ -37,7 +44,6 @@ function Procvičování() {
 
     if (localStorage.getItem("isAuth") === "true") {
         return (
-            <><Navbar isAuth={isAuth} setIsAuth={setIsAuth}/>
                 <div className={"flex flex-col w-[96%] mx-auto mt-8 items-center"}>
                     <div className={"blobNotes"}>
 
@@ -76,7 +82,6 @@ function Procvičování() {
                     </div>
 
                 </div>
-            </>
 
         )
 

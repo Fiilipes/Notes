@@ -8,8 +8,10 @@ import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/fire
 import {db} from "../../../firebase.config";
 import {getAuth} from "firebase/auth";
 import {Link} from "react-router-dom";
+import "./Zápisy.scss"
 import Navbar from "../../Navbar";
 import login from "../../Login";
+import notesLogo from "../../../assets/img/notesLogo.png";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -189,6 +191,11 @@ export default () => {
 
     useEffect(
         () => {
+            // set title of the page
+            document.title = "Notes | Zápisy"
+            // @ts-ignore
+            document.querySelector("link[rel*='icon']").setAttribute('href', notesLogo);
+
             console.log("useEffect")
 
             // get items from firestore
@@ -200,7 +207,6 @@ export default () => {
     // @ts-ignore
     if (localStorage.getItem("isAuth") === "true") {
         return (
-            <><Navbar isAuth={isAuth} setIsAuth={setIsAuth}/>
                 <div className={"flex flex-col w-[96%] mx-auto mt-8"}>
                     <div className={"blobNotes"}>
 
@@ -281,143 +287,144 @@ export default () => {
 
                                 </div>
                                 : ""}
-                            </div>
-                            <div
-                                className={`absolute mt-[60px] bg-[rgba(0,0,0,0.95)] w-[500px] h-[400px] z-10 mx-auto text-white text-xl font-bold p-4 rounded-[20px] select-none ${filterVisible ? "" : "hidden"}`}>
-                                <h2 className={"text-white mb-2"}>Předmět</h2>
-                                <div className={"flex flex-row"}>
-                                    <div className={"flex flex-col mx-2"}>
-                                        <input type={"checkbox"} className={"w-[20px] h-[20px] cursor-pointer"}
-                                               id={"checkbox1"} onChange={filterSubject} name={"dějepis"}/>
-                                        <label htmlFor={"checkbox1"}
-                                               className={"text-white text-sm font-semibold cursor-pointer"}>Dějepis</label>
-                                    </div>
-                                    <div className={"flex flex-col mx-2"}>
-                                        <input type={"checkbox"} className={"w-[20px] h-[20px] cursor-pointer"}
-                                               id={"checkbox2"} onChange={filterSubject} name={"čeština"}/>
-                                        <label htmlFor={"checkbox2"}
-                                               className={"text-white text-sm font-semibold cursor-pointer"}>Čeština</label>
-                                    </div>
-                                    <div className={"flex flex-col mx-2"}>
-                                        <input type={"checkbox"} className={"w-[20px] h-[20px] cursor-pointer"}
-                                               id={"checkbox3"} onChange={filterSubject} name={"biologie"}/>
-                                        <label htmlFor={"checkbox3"}
-                                               className={"text-white text-sm font-semibold cursor-pointer"}>Biologie</label>
-                                    </div>
-                                    <div className={"flex flex-col mx-2"}>
-                                        <input type={"checkbox"} className={"w-[20px] h-[20px] cursor-pointer"}
-                                               id={"checkbox4"} onChange={filterSubject} name={"chemie"}/>
-                                        <label htmlFor={"checkbox4"}
-                                               className={"text-white text-sm font-semibold cursor-pointer"}>Chemie</label>
-                                    </div>
-                                    <div className={"flex flex-col mx-2"}>
-                                        <input type={"checkbox"} className={"w-[20px] h-[20px] cursor-pointer"}
-                                               id={"checkbox5"} onChange={filterSubject} name={"zsv"}/>
-                                        <label htmlFor={"checkbox5"}
-                                               className={"text-white text-sm font-semibold cursor-pointer"}>ZSV</label>
-                                    </div>
-                                    <div className={"flex flex-col mx-2"}>
-                                        <input type={"checkbox"} className={"w-[20px] h-[20px] cursor-pointer"}
-                                               id={"checkbox6"} onChange={filterSubject} name={"zeměpis"}/>
-                                        <label htmlFor={"checkbox6"}
-                                               className={"text-white text-sm font-semibold cursor-pointer"}>Zeměpis</label>
-                                    </div>
-                                </div>
+                             
+
                             </div>
 
 
                         </div>
-                        <div className={"flex flex-col mt-12"}>
-                            <div id={"workspace"} className={"grid grid-cols-6 gap-y-12 mb-[50px]"}>
-                                {chartNoteVisible ? <div
-                                    className={"w-[160px] h-[100px] bg-[rgba(255,255,255,0.5)] transition duration-300  text-black border-2 border-black font-bold text-xl rounded-[20px] p-4 text-center mx-3  shadow-[0_30px_0_rgba(0,0,0,1)] opacity-[0.95] "}>
-                                    <input type={"text"}
-                                           className={"h-[30px] w-[120px] px-3 border-2 border-black rounded-xl mt-[8px] text-lg text-black outline-none"}
-                                           id={"inputTémaZápisy"} placeholder={"Téma"} required={true}/>
-                                    <div
-                                        className={"flex flex-row w-[130px] justify-between absolute ml-[-6px] mt-[45px] text-white text-[10px] font-bold"}>
-                                        {/*Emoji*/}
-                                        <div className={"flex flex-row items-center justify-between w-[inherit]"}>
-                                            <input type={"text"} id={"inputSubjectZápisy"}
-                                                   className={"w-[80px] h-[20px] my-1 px-1 rounded-md outline-none text-black"}
-                                                   required={true} placeholder={"Předmět"}/>
+                        <div className={"flex flex-row w-[800px] justify-center mt-4 "}>
 
-                                            <div className={"flex flex-row items-center justify-between"}>
+                        </div>
+                        <div className={"flex flex-col mt-6"}>
+                            {
+                                filterVisible ?
+                                    <div className={"flex flex-row justify-center"}>
+                                        <div className={"mx-2 flex flex-col items-center "}>
+                                            <div className={"text-2xl font-bold mb-2"}>
+                                                Předmět
+                                            </div>
 
-                                                <div
-                                                    className={"bg-[#75f] mx-[1.5px] rounded-[10px] w-[30px] h-[13.5px] text-center flex justify-center items-center px-3 cursor-pointer"}
-                                                    onClick={() => {
-                                                        // add new note to firestore
-                                                        console.log("add note");
-                                                        const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-                                                        console.log(randomId);
-                                                        const currentDay = new Date().getDate();
-                                                        const currentMonth = new Date().getMonth() + 1;
-                                                        const currentYear = new Date().getFullYear();
-                                                        let currentDate = new Date();
-                                                        let startDate = new Date(currentDate.getFullYear(), 0, 1);
-                                                        // @ts-ignore
-                                                        let days = Math.floor((currentDate - startDate) /
-                                                            (24 * 60 * 60 * 1000));
+                                            <div className={"grid grid-cols-2 gap-y-4"}>
+                                                <label className="container">One
+                                                    <input type="checkbox" checked={true}/>
+                                                    <span className="checkmark"></span>
+                                                </label>
 
-                                                        let weekNumber = Math.ceil(days / 7);
+                                                <label className="container">Two
+                                                    <input type="checkbox"/>
+                                                    <span className="checkmark"></span>
+                                                </label>
 
-                                                        // Display the calculated result
-                                                        console.log("Week number of " + currentDate +
-                                                            " is :   " + weekNumber);
+                                                <label className="container">Three
+                                                    <input type="checkbox"/>
+                                                    <span className="checkmark"></span>
+                                                </label>
 
-
-                                                        const name = document.getElementById("inputTémaZápisy") as HTMLInputElement;
-                                                        const subject = document.getElementById("inputSubjectZápisy") as HTMLInputElement;
-                                                        if (name.value === "" || subject.value === "") {
-                                                            alert("Vyplňte všechny údaje");
-                                                        } else {
-                                                            getNotes().then((data) => {
-                                                                // @ts-ignore
-                                                                const notes = data[0]["notes"];
-                                                                // @ts-ignore
-                                                                setDoc(doc(db, "notes", "notes"), {
-                                                                    notes: [...notes, {
-                                                                        name: name.value,
-                                                                        subject: subject.value,
-                                                                        editorArray: ["editorOne"],
-                                                                        editorTextArray: [`<h1>${name.value}</h1>`],
-                                                                        editorInputValueArray: ["1"],
-                                                                        id: "Z-" + randomId,
-                                                                        date: [
-                                                                            currentDay, currentMonth, currentYear, weekNumber
-                                                                        ],
-                                                                        zápisy: []
-                                                                    }
-                                                                    ]
-                                                                }).then(
-                                                                    () => {
-                                                                        location.reload();
-                                                                    }
-                                                                );
-
-                                                            });
-
-                                                        }
-
-
-                                                    }}>
-                                                    Add
-                                                </div>
-
+                                                <label className="container">Four
+                                                    <input type="checkbox"/>
+                                                    <span className="checkmark"></span>
+                                                </label>
 
                                             </div>
+
+
+
                                         </div>
 
-
                                     </div>
+                                    :                            <div id={"workspace"} className={"grid grid-cols-6 gap-y-12 mb-[50px]"}>
+                                    {chartNoteVisible ? <div
+                                        className={"w-[160px] h-[100px] bg-[rgba(255,255,255,0.5)] transition duration-300  text-black border-2 border-black font-bold text-xl rounded-[20px] p-4 text-center mx-3  shadow-[0_30px_0_rgba(0,0,0,1)] opacity-[0.95] "}>
+                                        <input type={"text"}
+                                               className={"h-[30px] w-[120px] px-3 border-2 border-black rounded-xl mt-[8px] text-lg text-black outline-none"}
+                                               id={"inputTémaZápisy"} placeholder={"Téma"} required={true}/>
+                                        <div
+                                            className={"flex flex-row w-[130px] justify-between absolute ml-[-6px] mt-[45px] text-white text-[10px] font-bold"}>
+                                            {/*Emoji*/}
+                                            <div className={"flex flex-row items-center justify-between w-[inherit]"}>
+                                                <input type={"text"} id={"inputSubjectZápisy"}
+                                                       className={"w-[80px] h-[20px] my-1 px-1 rounded-md outline-none text-black"}
+                                                       required={true} placeholder={"Předmět"}/>
 
-                                </div> : ""}
+                                                <div className={"flex flex-row items-center justify-between"}>
 
-                                {notesArr.map((item) => {
-                                    return item;
-                                })}
-                            </div>
+                                                    <div
+                                                        className={"bg-[#75f] mx-[1.5px] rounded-[10px] w-[30px] h-[13.5px] text-center flex justify-center items-center px-3 cursor-pointer"}
+                                                        onClick={() => {
+                                                            // add new note to firestore
+                                                            console.log("add note");
+                                                            const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                                                            console.log(randomId);
+                                                            const currentDay = new Date().getDate();
+                                                            const currentMonth = new Date().getMonth() + 1;
+                                                            const currentYear = new Date().getFullYear();
+                                                            let currentDate = new Date();
+                                                            let startDate = new Date(currentDate.getFullYear(), 0, 1);
+                                                            // @ts-ignore
+                                                            let days = Math.floor((currentDate - startDate) /
+                                                                (24 * 60 * 60 * 1000));
+
+                                                            let weekNumber = Math.ceil(days / 7);
+
+                                                            // Display the calculated result
+                                                            console.log("Week number of " + currentDate +
+                                                                " is :   " + weekNumber);
+
+
+                                                            const name = document.getElementById("inputTémaZápisy") as HTMLInputElement;
+                                                            const subject = document.getElementById("inputSubjectZápisy") as HTMLInputElement;
+                                                            if (name.value === "" || subject.value === "") {
+                                                                alert("Vyplňte všechny údaje");
+                                                            } else {
+                                                                getNotes().then((data) => {
+                                                                    // @ts-ignore
+                                                                    const notes = data[0]["notes"];
+                                                                    // @ts-ignore
+                                                                    setDoc(doc(db, "notes", "notes"), {
+                                                                        notes: [...notes, {
+                                                                            name: name.value,
+                                                                            subject: subject.value,
+                                                                            editorArray: ["editorOne"],
+                                                                            editorTextArray: [`<h1>${name.value}</h1>`],
+                                                                            editorInputValueArray: ["1"],
+                                                                            id: "Z-" + randomId,
+                                                                            date: [
+                                                                                currentDay, currentMonth, currentYear, weekNumber
+                                                                            ],
+                                                                            zápisy: []
+                                                                        }
+                                                                        ]
+                                                                    }).then(
+                                                                        () => {
+                                                                            location.reload();
+                                                                        }
+                                                                    );
+
+                                                                });
+
+                                                            }
+
+
+                                                        }}>
+                                                        Add
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div> : ""}
+
+                                    {notesArr.map((item) => {
+                                        return item;
+                                    })}
+                                </div>
+
+                            }
                             <div id={"noResultsZápisy"}
                                  className={"font-bold hidden text-center flex flex-col justify-center items-center mx-auto w-full mt-8 "}>
                                 <div className={"text-3xl"}>
@@ -434,7 +441,6 @@ export default () => {
 
 
                 </div>
-            </>
         )
 
 

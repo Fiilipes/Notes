@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import NoteBlob from "../Blobs/NoteBlob";
 import {getAuth} from "firebase/auth";
 import Navbar from "../../Navbar";
+import notesLogo from "../../../assets/img/notesLogo.png";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -96,6 +97,11 @@ function Test({id, name, subject, date}) {
 
     useEffect(
         () => {
+            // set title of the page
+            document.title = "Test | " + name;
+            // @ts-ignore
+            document.querySelector("link[rel*='icon']").setAttribute('href', notesLogo);
+
             getNotes().then((data) => {
                 let myData = data
                 // @ts-ignore
@@ -121,7 +127,6 @@ function Test({id, name, subject, date}) {
         // @ts-ignore
         return (
             <div>
-                <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
 
                 <div className={"blobNotes"}>
 

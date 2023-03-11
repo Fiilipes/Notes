@@ -17,12 +17,12 @@ const getNotes = async () => {
 // fullscreen setup
 import "./Zápis.scss"
 import Navbar from "../../Navbar";
+import notesLogo from "../../../assets/img/notesLogo.png";
 
 
 // @ts-ignore
-function Zápis({id, name, subject, date}) {
+function Zápis({id, name, subject, date, isAuth, setIsAuth}) {
     const handle = useFullScreenHandle();
-    const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
 
     console.log(id)
     const [myComponents, setMyComponents] = useState([]);
@@ -322,6 +322,11 @@ function Zápis({id, name, subject, date}) {
     }
 
     useEffect(() => {
+        // set title of the page
+        document.title = "Zápis | " + name;
+        // @ts-ignore
+        document.querySelector("link[rel*='icon']").setAttribute('href', notesLogo);
+
         handleLoad()
         try {
             // @ts-ignore
@@ -353,7 +358,6 @@ function Zápis({id, name, subject, date}) {
         return (
 
             <div>
-                <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
 
                 <div className={"blobNotes"}>
 
