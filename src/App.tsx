@@ -24,6 +24,7 @@ import Competitions from "./components/competitions/Competitions";
 import ProcvičováníComponent from './components/notes/Procvičování/ProcvičováníComponent';
 import Flashcard from "./components/notes/Procvičování/flashcards/Flashcard";
 import FlippableCard from './components/notes/Procvičování/flashcards/flippable-card';
+import Match from "./components/notes/Procvičování/drag/Match";
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -209,6 +210,14 @@ function App() {
                         console.log(item)
                         return (
                             <Route path={`/notes/procvičování/${item}/flashcards`} element={<Flashcard id={item} name={helperNameArray3[index]} subject={helperSubjectArray3[index]} date={helperDateArray3[index]} />} />
+                        )
+                    })
+                }
+                {helperIdArray3.map((item: any, index: any) => {
+                        console.log("item")
+                        console.log(item)
+                        return (
+                            <Route path={`/notes/procvičování/${item}/match`} element={<Match id={item} name={helperNameArray3[index]} subject={helperSubjectArray3[index]} date={helperDateArray3[index]} />} />
                         )
                     })
                 }

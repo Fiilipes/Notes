@@ -8,18 +8,26 @@ import NoteBlob from "../Blobs/NoteBlob";
 import {getAuth} from "firebase/auth";
 import Navbar from "../../Navbar";
 import notesLogo from "../../../assets/img/notesLogo.png";
+import PinkBox from './drag/dragableComponents/PinkBox';
+import YellowBox from './drag/dragableComponents/YellowBox';
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
     const data = await getDocs(notesRef);
     return data.docs.map((doc) => ({...doc.data(), id: doc.id} ))
 }
+
+
+
+
 // @ts-ignore
 function Test({id, name, subject, date}) {
     const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
 
 
     if (localStorage.getItem("isAuth") === "true") {
+        // @ts-ignore
+        // @ts-ignore
         // @ts-ignore
         return (
             <div>
@@ -33,6 +41,8 @@ function Test({id, name, subject, date}) {
                     {date}
                 </div>
                 <Link to={"/notes/procvičování/"+id+"/flashcards"}>Flashcards</Link>
+                <Link to={"/notes/procvičování/"+id+"/match"}>Match</Link>
+
             </div>
         );
 
