@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import {collection, getDocs, setDoc, addDoc, doc, deleteDoc} from "firebase/firestore";
-import {db} from "../../../firebase.config";
+import {auth, db} from "../../../firebase.config";
 import {Link} from "react-router-dom";
 import PracticeBlob from "../Blobs/PractiseBlob";
 import Navbar from "../../Navbar";
@@ -23,6 +23,50 @@ function Procvičování() {
 
     const [procvičování, setProcvičování] = useState([])
     const [users, setUsers] = useState([])
+
+
+    const addNotesCoins = (amount : number) => {
+        getSS().then(
+            (data) => {
+                // @ts-ignore
+                let myUsers = data[2]["all"]
+                console.log(myUsers)
+                let found = false;
+                myUsers.forEach((user: any) => {
+                    // @ts-ignore
+                    if (user.uid === auth.currentUser.uid) {
+                        console.log(user.email)
+                        user.ssCoins += amount;
+                        found = true;
+                    }
+                })
+
+                if (!found) {
+                    myUsers.push({
+                        // @ts-ignore
+                        uid: auth.currentUser.uid,
+                        // @ts-ignore
+                        email: auth.currentUser.email,
+                        // @ts-ignore
+                        avatar: auth.currentUser.photoURL,
+                        ssCoins: 0,
+                        // @ts-ignore
+                        username: auth.currentUser.displayName,
+                        verified: false,
+
+                    })
+                }
+
+                setDoc(
+                    doc(db, "ssbot", "users"),
+                    {
+                        all: myUsers
+                    }
+                )
+
+            }
+        )
+    }
 
     useEffect(() => {
         // set title of the page
@@ -80,7 +124,9 @@ function Procvičování() {
                             </div>
                         </div>
                     </div>
-
+                <div onClick={() => addNotesCoins(15)}>
+                    click me
+                </div>
                 </div>
 
         )

@@ -20,6 +20,10 @@ import {db} from "./firebase.config";
 import Test from "./components/notes/Testy/Test";
 import TestView from "./components/TestView";
 import Events from "./components/events/Events";
+import Competitions from "./components/competitions/Competitions";
+import ProcvičováníComponent from './components/notes/Procvičování/ProcvičováníComponent';
+import Flashcard from "./components/notes/Procvičování/flashcards/Flashcard";
+import FlippableCard from './components/notes/Procvičování/flashcards/flippable-card';
 const postCollectionRef = collection(db, "ssbot");
 const notesRef = collection(db, "notes");
 const getNotes = async () => {
@@ -44,6 +48,11 @@ function App() {
     const [helperSubjectArray2, setHelperSubjectArray2] = useState([])
     const [helperDateArray2, setHelperDateArray2] = useState([])
 
+    const [helperIdArray3, setHelperIdArray3] = useState([])
+    const [helperNameArray3, setHelperNameArray3] = useState([])
+    const [helperSubjectArray3, setHelperSubjectArray3] = useState([])
+    const [helperDateArray3, setHelperDateArray3] = useState([])
+
 
     const handleLoad = () => {
         getNotes().then((data) => {
@@ -60,6 +69,13 @@ function App() {
             let myNameArray2:any[] = []
             let mySubjectArray2:any[] = []
             let myDateArray2:any[] = []
+
+            // @ts-ignore
+            let myData3 = data[1]["all"]
+            let myIdArray3:any[] = []
+            let myNameArray3:any[] = []
+            let mySubjectArray3:any[] = []
+            let myDateArray3:any[] = []
 
 
             myData.forEach(
@@ -94,6 +110,22 @@ function App() {
                     )
                 }
             )
+            myData3.forEach(
+                (item: any) => {
+                    myIdArray3.push(
+                        `${item.id}`
+                    )
+                    myNameArray3.push(
+                        `${item.name}`
+                    )
+                    mySubjectArray3.push(
+                        `${item.subject}`
+                    )
+                    myDateArray3.push(
+                        `${item.date}`
+                    )
+                }
+            )
             // @ts-ignore
             setHelperIdArray(myIdArray)
             // @ts-ignore
@@ -110,6 +142,15 @@ function App() {
             setHelperSubjectArray2(mySubjectArray2)
             // @ts-ignore
             setHelperDateArray2(myDateArray2)
+            // @ts-ignore
+            setHelperIdArray3(myIdArray3)
+            // @ts-ignore
+            setHelperNameArray3(myNameArray3)
+            // @ts-ignore
+            setHelperSubjectArray3(mySubjectArray3)
+            // @ts-ignore
+            setHelperDateArray3(myDateArray3)
+
 
         })
     }
@@ -133,6 +174,7 @@ function App() {
                 <Route path="/" element={<Home isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route path="/notes" element={<Notes isAuth={isAuth} setIsAuth={setIsAuth} />} />
                 <Route path={"/events"} element={<Events />} />
+                <Route path={"/competitions"} element={<Competitions />} />
                 <Route path={"/notes/zápisy"} element={<Zápisy/>} />
                 <Route path={"/notes/Testy"} element={<Testy />} />
                 <Route path={"/notes/procvičování"} element={<Procvičování />} />
@@ -153,6 +195,22 @@ function App() {
                         <Route path={`/notes/testy/${item}`} element={<Test id={item} name={helperNameArray2[index]} subject={helperSubjectArray2[index]} date={helperDateArray2[index]} />} />
                     )
                 })
+                }
+                {helperIdArray3.map((item: any, index: any) => {
+                    console.log("item")
+                    console.log(item)
+                    return (
+                        <Route path={`/notes/procvičování/${item}`} element={<ProcvičováníComponent id={item} name={helperNameArray3[index]} subject={helperSubjectArray3[index]} date={helperDateArray3[index]} />} />
+                    )
+                })
+                }
+                {helperIdArray3.map((item: any, index: any) => {
+                        console.log("item")
+                        console.log(item)
+                        return (
+                            <Route path={`/notes/procvičování/${item}/flashcards`} element={<Flashcard id={item} name={helperNameArray3[index]} subject={helperSubjectArray3[index]} date={helperDateArray3[index]} />} />
+                        )
+                    })
                 }
             </Routes>
         </>

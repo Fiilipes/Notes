@@ -220,7 +220,7 @@ function Test({id, name, subject, date}) {
 
 
     } else {
-        localStorage.setItem("lastPage", "/notes/Testy/"+id)
+        localStorage.setItem("lastPage", "/notes/testy/"+id)
         location.href = "/login"
         return <div></div>
     }

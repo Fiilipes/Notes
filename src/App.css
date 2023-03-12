@@ -66,7 +66,28 @@ blockquote {
 
 
 }
+.blobCompetitions {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: -200px;
+    top: -200px;
+    z-index: -99;
 
+    border-radius: 500px;
+    box-shadow:
+            195px 165px 25px 8px rgba(89, 189, 211, 0.25),
+            195px 215px 25px 12px rgba(116, 87, 189, 0.25),
+            355px 155px 25px 10px rgba(206, 114, 236, 0.35),
+            100vw 150px 25px 12px rgba(59, 61, 189, 0.31),
+            105vw 260px 25px 12px rgba(201, 144, 22, 0.28),
+            40vw 750px 25px 18px rgba(197, 137, 78, 0.32),
+            50vw 700px 25px 80px rgba(216, 239, 114, 0.32),
+            65vw 750px 25px 26px rgba(125, 73, 215, 0.32),
+            75vw 650px 25px 45px rgba(206, 114, 236, 0.3);
+
+
+}
 #notesLogoMain {
     width: 300px;
     height: 300px;

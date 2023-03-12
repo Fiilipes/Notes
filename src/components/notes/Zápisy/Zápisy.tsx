@@ -244,11 +244,10 @@ export default () => {
                                 <input type={"text"} onInput={filterText}
                                        className={"w-[400px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1"}
                                        placeholder={"Název zápisu"}/>
+
                                 <div id={"filter"}
-                                     className={"w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}
-                                     onClick={() => {
-                                         setFilterVisible(!filterVisible);
-                                     }}>
+                                     className={" w-[50px] h-[50px] rounded-xl border-2 border-black text-center text-2xl font-bold bg-white mx-1 cursor-pointer"}>
+
                                     {/*Arrow aiming down without the arrow*/}
                                     {/*Line*/}
                                     <div
@@ -297,43 +296,7 @@ export default () => {
 
                         </div>
                         <div className={"flex flex-col mt-6"}>
-                            {
-                                filterVisible ?
-                                    <div className={"flex flex-row justify-center"}>
-                                        <div className={"mx-2 flex flex-col items-center "}>
-                                            <div className={"text-2xl font-bold mb-2"}>
-                                                Předmět
-                                            </div>
-
-                                            <div className={"grid grid-cols-2 gap-y-4"}>
-                                                <label className="container">One
-                                                    <input type="checkbox" checked={true}/>
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                                <label className="container">Two
-                                                    <input type="checkbox"/>
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                                <label className="container">Three
-                                                    <input type="checkbox"/>
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                                <label className="container">Four
-                                                    <input type="checkbox"/>
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-
-
-
-                                        </div>
-
-                                    </div>
-                                    :                            <div id={"workspace"} className={"grid grid-cols-6 gap-y-12 mb-[50px]"}>
+                            <div id={"workspace"} className={"grid grid-cols-6 gap-y-12 mb-[50px]"}>
                                     {chartNoteVisible ? <div
                                         className={"w-[160px] h-[100px] bg-[rgba(255,255,255,0.5)] transition duration-300  text-black border-2 border-black font-bold text-xl rounded-[20px] p-4 text-center mx-3  shadow-[0_30px_0_rgba(0,0,0,1)] opacity-[0.95] "}>
                                         <input type={"text"}
@@ -423,8 +386,6 @@ export default () => {
                                         return item;
                                     })}
                                 </div>
-
-                            }
                             <div id={"noResultsZápisy"}
                                  className={"font-bold hidden text-center flex flex-col justify-center items-center mx-auto w-full mt-8 "}>
                                 <div className={"text-3xl"}>

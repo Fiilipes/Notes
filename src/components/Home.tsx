@@ -53,6 +53,12 @@ function Home({isAuth, setIsAuth}) {
                         transition={{delay: 1.5, duration:0.5, ease: "easeInOut"}}
             >
             </motion.div>
+            <motion.div className={"blobCompetitions ml-10 mt-48"}
+                        initial={{opacity: 0}}
+                        animate={{opacity:1}}
+                        transition={{delay: 1.5, duration:0.5, ease: "easeInOut"}}
+            >
+            </motion.div>
 
             <TypingAnimation textToBeWritten={"Survival Server"} className={"text-7xl font-bold top-20 absolute text-center"} delay={0.5}/>
 
@@ -65,9 +71,9 @@ function Home({isAuth, setIsAuth}) {
             >
             </motion.div>
             <motion.div
-                className={"w-[100px] h-[100px] bg-black absolute"}
+                className={"w-[80px] h-[80px] bg-black absolute"}
                 initial={{scale: 1, borderRadius: "50%"}}
-                animate={{x:300, borderRadius: "0%"}}
+                animate={{x:-650,y:-100, borderRadius: "0%"}}
                 transition={{delay: 1.5, duration:0.4, ease: "easeInOut"}}
             >
             </motion.div>
@@ -75,18 +81,18 @@ function Home({isAuth, setIsAuth}) {
             <motion.img
                 src={notesLogo}
                 className={"w-[100px] h-[100px] absolute cursor-pointer"}
-                initial={{scale: 0,x: 300, y: 0, borderRadius: "50%"}}
-                animate={{scale:1.8, borderRadius: "0%"}}
+                initial={{scale: 0,x: -650, y: -100, borderRadius: "50%"}}
+                animate={{scale:1, borderRadius: "0%"}}
                 transition={{delay: 1.85, duration:0.25}}
                 onClick={() => navigate("/notes")}
 
             ></motion.img>
-            <TypingAnimation textToBeWritten={"Notes"} className={"text-3xl font-bold absolute text-center"} displacementX={"300px"} displacementY={"120px"} delay={2}/>
+            <TypingAnimation textToBeWritten={"Notes"} className={"text-3xl w-[300px] font-bold absolute text-left"} displacementX={"-430px"} displacementY={"-105px"} delay={2}/>
 
             <motion.div
-                className={"w-[100px] h-[100px] bg-black absolute"}
+                className={"w-[80px] h-[80px] bg-black absolute"}
                 initial={{scale: 1, borderRadius: "50%"}}
-                animate={{x:-300, borderRadius: "0%"}}
+                animate={{x:-650, borderRadius: "0%"}}
                 transition={{delay: 1.5, duration:0.4, ease: "easeInOut"}}
 
             >
@@ -95,13 +101,31 @@ function Home({isAuth, setIsAuth}) {
             <motion.img
                 src={eventsLogo}
                 className={"w-[100px] h-[100px] absolute cursor-pointer"}
-                initial={{scale: 0,x: -300, y: 0, borderRadius: "50%"}}
-                animate={{scale:1.8, borderRadius: "0%"}}
+                initial={{scale: 0,x: -650, y: 0, borderRadius: "50%"}}
+                animate={{scale:1, borderRadius: "0%"}}
                 transition={{delay: 1.85, duration:0.25}}
                 onClick={() => navigate("/events")}
             ></motion.img>
-            <TypingAnimation textToBeWritten={"Events"} className={"text-3xl font-bold absolute text-center"} displacementX={"-300px"} displacementY={"120px"} delay={2}/>
+            <TypingAnimation textToBeWritten={"Events"} className={"text-3xl w-[300px] font-bold absolute text-left"} displacementX={"-430px"} displacementY={"0px"} delay={2}/>
 
+            <motion.div
+                className={"w-[80px] h-[80px] bg-black absolute"}
+                initial={{scale: 1, borderRadius: "50%"}}
+                animate={{x:-650,y:100, borderRadius: "0%"}}
+                transition={{delay: 1.5, duration:0.4, ease: "easeInOut"}}
+            >
+            </motion.div>
+
+            <motion.img
+                src={competitionsLogo}
+                className={"w-[100px] h-[100px] absolute cursor-pointer"}
+                initial={{scale: 0,x: -650, y: 100, borderRadius: "50%"}}
+                animate={{scale:1, borderRadius: "0%"}}
+                transition={{delay: 1.85, duration:0.25}}
+                onClick={() => navigate("/competitions")}
+
+            ></motion.img>
+            <TypingAnimation textToBeWritten={"Competitions"} className={"text-3xl w-[300px] font-bold absolute text-left"} displacementX={"-430px"} displacementY={"105px"} delay={2}/>
 
 
         </div>
